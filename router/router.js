@@ -1,34 +1,43 @@
 const express = require("express");
 
 class Router {
-    constructor(service, auth) {
-        this.service = service;
-        this.auth = auth;
+    constructor(users, auth) {
+        this.users = users,
+            this.auth = auth;
     }
 
     router() {
         let router = express.Router();
 
-        router.post("/login", this.login.bind(this));
-        router.post("/signup", this.signup.bind(this));
-        router.get('/info', this.auth.authenticate(), this.info.bind(this))
+        //signup user
+        router.post('/signup', this.signup.bind(this))
+        //login
+        router.post("/login", this.login.bind(this))
+        //get user info
+        router.get('/users', this.usersAll.bind(this))
+        router.get('/users/:username', this.usersSigle.bind(this))
+
         return router;
     }
 
+    signup(req, res) {
+        return this.users
+            .signup(req.body.username, req.body.email, req.body.password, req.body.admin, req.body.areaCode, req.body.contactNo, req.body.logo, req.body.access)
+            .then((data) => res.json(data))
+    }
+
     login(req, res) {
-        return this.service
+        return this.users
             .login(req.body.username, req.body.password)
             .then((token) => (token ? res.json(token) : res.sendStatus(401)));
     }
 
-    signup(req, res) {
-        return this.service
-            .signup(req.body.username, req.body.password)
-            .then((userId) => res.send(userId));
+    usersAll(req, res) {
+        return this.users.usersAll().then((data) => res.json(data))
     }
 
-    info(req, res) {
-        return this.service.info(req.user[0]).then((data) => res.send(data));
+    usersSigle(req, res) {
+        return this.users.usersSigle(req.params.username).then((data) => res.json(data))
     }
 }
 

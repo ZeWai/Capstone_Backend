@@ -5,18 +5,20 @@ const knex = require("knex")(knexfile);
 const auth = require("./auth")(knex);
 const app = express();
 const Router = require("./router/router");
-const Service = require("./service/service");
+const port = 8080;
+const ip = "localhost";
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(auth.initialize());
 
-const services = new Service(knex);
-
+//Set up service and routers
+const Users = require("./service/users");
+const users = new Users(knex);
 //set up router file
-app.use("/api", new Router(services, auth).router());
+app.use("/api", new Router(users, auth).router());
 
-app.listen(8080, () => {
-    console.log("Application listening to port 8080");
+app.listen(port, ip, () => {
+    console.log(`Application listening to port ${port}`);
 });
