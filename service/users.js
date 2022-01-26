@@ -81,6 +81,7 @@ class Users {
     if (password == user.password) {
       let payload = {
         id: user.id,
+        role: user.role,
       };
       let token = jwt.sign(payload, config.jwtSecret);
       return token;
