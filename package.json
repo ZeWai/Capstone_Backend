@@ -1,19 +1,23 @@
 {
   "dependencies": {
     "auth": "^0.0.9",
+<<<<<<< HEAD
     "bcrypt": "^5.0.1",
+=======
+>>>>>>> c46738bcd844dafc067d9bcc5ea4a088346e4b49
     "cors": "^2.8.5",
-    "dotenv": "^14.2.0",
+    "dotenv": "^14.3.0",
     "express": "^4.17.2",
     "knex": "^1.0.1",
-    "passport": "^0.5.2",
-    "passport-jwt": "^4.0.0",
     "pg": "^8.7.1"
   },
   "name": "capstone_backend",
   "version": "1.0.0",
   "main": "index.js",
+<<<<<<< HEAD
   "start": "index.js",
+=======
+>>>>>>> c46738bcd844dafc067d9bcc5ea4a088346e4b49
   "devDependencies": {
     "coffee-script": "^1.12.7"
   },
@@ -31,4 +35,8 @@
   },
   "homepage": "https://github.com/ZeWai/Capstone_Backend#readme",
   "description": ""
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c46738bcd844dafc067d9bcc5ea4a088346e4b49
