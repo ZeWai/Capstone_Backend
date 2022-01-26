@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "auth": "^0.0.9",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^14.2.0",
@@ -8,5 +9,26 @@
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "pg": "^8.7.1"
-  }
+  },
+  "name": "capstone_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "start": "index.js",
+  "devDependencies": {
+    "coffee-script": "^1.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeWai/Capstone_Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeWai/Capstone_Backend/issues"
+  },
+  "homepage": "https://github.com/ZeWai/Capstone_Backend#readme",
+  "description": ""
 }

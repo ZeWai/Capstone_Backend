@@ -15,14 +15,29 @@ class Router {
         router.post("/login", this.login.bind(this))
         //get user info
         router.get('/users', this.usersAll.bind(this))
-        router.get('/users/:username', this.usersSigle.bind(this))
+        router.get('/users/:name', this.usersSigle.bind(this))
 
         return router;
     }
 
     signup(req, res) {
         return this.users
-            .signup(req.body.username, req.body.email, req.body.password, req.body.admin, req.body.areaCode, req.body.contactNo, req.body.logo, req.body.access)
+            .signup(
+                req.body.username,
+                req.body.email,
+                req.body.password,
+                req.body.postCode,
+                req.body.contact,
+                req.body.role,
+                req.body.name,
+                req.body.address,
+                req.body.size,
+                req.body.date_opened,
+                req.body.icon,
+                req.body.image,
+                req.body.soil_planting,
+                req.body.area
+            )
             .then((data) => res.json(data))
     }
 
@@ -37,7 +52,7 @@ class Router {
     }
 
     usersSigle(req, res) {
-        return this.users.usersSigle(req.params.username).then((data) => res.json(data))
+        return this.users.usersSigle(req.params.name).then((data) => res.json(data))
     }
 }
 

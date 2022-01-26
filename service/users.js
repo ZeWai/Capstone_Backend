@@ -9,33 +9,48 @@ class Users {
     }
 
     //post signup user
-    async signup(username, email, password, admin, areaCode, contactNo, logo, access) {
-        let hashedPassword = await bcrypt.hash(password, 10);
-        password = hashedPassword;
-        let signupForm = {
-            username: username,
-            email: email,
-            password: password,
-            admin: admin,
-            areaCode: areaCode,
-            contactNo: contactNo,
-            logo: logo,
-            access: access
-        }
+    async signup(Username, Email, Password, PostCode, Contact, Role, Name, Address, Size, Date_opened, Icon, Image, Soil_planting, Area) {
         try {
-            await this.knex("admin")
-                .insert({
-                    username: signupForm.username,
-                    email: signupForm.email,
-                    password: signupForm.password,
-                    admin: signupForm.admin,
-                    areaCode: signupForm.areaCode,
-                    contactNo: signupForm.contactNo,
-                    logo: signupForm.logo,
-                    access: signupForm.access
-                })
-            let err = "Signup success!"
-            return err;
+            let checkExsit = await this.knex("users")
+                .select("username")
+                .where({ username: Username })
+            if (checkExsit.length == 0) {
+                let usersInsert = {
+                    username: Username,
+                    email: Email,
+                    password: Password,
+                    postCode: PostCode,
+                    contact: Contact,
+                    role: Role
+                }
+                await this.knex('users').insert(usersInsert);
+
+                let userId = await this.knex('users').select("id").where({ username: Username })
+
+                let infoInsert = {
+                    name: Name,
+                    users_id: userId[0].id,
+                    address: Address,
+                    size: Size,
+                    date_opened: Date_opened,
+                    icon: Icon,
+                    image: Image,
+                    soil_planting: Soil_planting
+                }
+                await this.knex('user_info').insert(infoInsert);
+
+                let zoneInsert = {
+                    users_id: userId[0].id,
+                    area: Area,
+                }
+                await this.knex('zone').insert(zoneInsert);
+
+                let err = "Signup success!";
+                return err;
+            } else {
+                let err = "Username already exists!"
+                return err;
+            }
         } catch (err) {
             err = "Username already exists, please try other one!"
             return err;
@@ -46,10 +61,10 @@ class Users {
     async login(username, password) {
         let user = await this.knex
             .select("*")
-            .from("admin")
+            .from("users")
             .where({ username: username })
             .then((data) => data[0]);
-        if (await bcrypt.compare(password, user.password)) {
+        if (password == user.password) {
             let payload = {
                 id: user.id,
             };
@@ -63,7 +78,7 @@ class Users {
 
     //get all user
     async usersAll() {
-        let userList = await this.knex("admin").select("*");
+        let userList = await this.knex("user_info").select("*");
         if (userList.length == 0) {
             let err = "No user exist!"
             return err;
@@ -74,7 +89,7 @@ class Users {
 
     //get sigle user
     async usersSigle(username) {
-        let user = await this.knex("admin").select("*").where({ username: username })
+        let user = await this.knex("user_info").select("*").where({ name: username })
         if (user.length == 0) {
             let err = "User does not exist!"
             return err;
