@@ -102,8 +102,8 @@ class Users {
     }
   }
 
-  //get sigle user
-  async usersSigle(username) {
+  //get single user
+  async usersSingle(username) {
     let user = await this.knex("user_info")
       .select("*")
       .where({ name: username });

@@ -8,7 +8,6 @@ exports.up = function (knex) {
     table.integer("users_id").references("users.id");
     table.string("name");
     table.string("address");
-    table.string("size");
     table.binary("icon");
     table.binary("image");
     table.timestamps(false, true);

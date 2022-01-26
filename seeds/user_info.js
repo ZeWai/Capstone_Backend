@@ -15,7 +15,6 @@ exports.seed = function (knex) {
           name: "Metroplaza",
           address:
             "Level 5 Sky Garden, Metroplaza, 223 Hing Fong Road, Kwai Chung",
-          size: 13000,
           icon: null,
           image: null,
         },
@@ -24,7 +23,6 @@ exports.seed = function (knex) {
           users_id: 2,
           name: "Mio Fong",
           address: "Admin Garden, Admin Plaza, Tuen Mun",
-          size: 0,
           icon: null,
           image: null,
         },
@@ -33,7 +31,6 @@ exports.seed = function (knex) {
           users_id: 3,
           name: "Happy Farmer",
           address: "Farmer Pool, Happy Plaza, Tuen Mun",
-          size: 0,
           icon: null,
           image: null,
         },
