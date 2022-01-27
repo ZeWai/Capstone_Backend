@@ -7,6 +7,7 @@ class Users {
     this.knex = knex;
   }
 
+
   //post signup user
   async signup(
     Username,
@@ -22,6 +23,7 @@ class Users {
     Area,
     Size
   ) {
+    let hashedPassword = await bcrypt.hash(Password, 10);
     try {
       let checkExsit = await this.knex("users")
         .select("username")
@@ -30,7 +32,7 @@ class Users {
         let usersInsert = {
           username: Username,
           email: Email,
-          password: Password,
+          password: hashedPassword,
           postCode: PostCode,
           tel: Tel,
           role: Role,
@@ -76,7 +78,7 @@ class Users {
       .from("users")
       .where({ username: username })
       .then((data) => data[0]);
-    if (password == user.password) {
+    if (await bcrypt.compare(password, user.password)) {
       let payload = {
         id: user.id,
         role: user.role,
