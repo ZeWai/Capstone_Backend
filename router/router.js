@@ -15,10 +15,11 @@ class Router {
         router.post("/login", this.login.bind(this))
         //get user info
         router.get('/users', this.usersAll.bind(this))
-        router.get('/users/:name', this.usersSigle.bind(this))
+        router.get('/user/single', this.usersSigle.bind(this))
 
         return router;
     }
+
 
     signup(req, res) {
         return this.users
@@ -50,7 +51,8 @@ class Router {
     }
 
     usersSigle(req, res) {
-        return this.users.usersSigle(req.params.name).then((data) => res.json(data))
+        console.log("at users")
+        return this.users.usersSigle(1).then((data) => res.json(data))
     }
 }
 

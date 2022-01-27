@@ -19,6 +19,7 @@ const users = new Users(knex);
 //set up router file
 app.use("/api", new Router(users, auth).router());
 
+
 app.listen(port, ip, () => {
     console.log(`Application listening to port ${port}`);
 });

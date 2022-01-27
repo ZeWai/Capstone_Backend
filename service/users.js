@@ -107,10 +107,12 @@ class Users {
     }
 
     //get single user
-    async usersSigle(Name) {
+    async usersSigle(id) {
+        console.log("at service")
         let user = await this.knex("user_info")
             .select("*")
-            .where({ name: Name });
+            .where({ users_id: id });
+            console.log(user)
         if (user.length == 0) {
             let err = "User does not exist!";
             return err;
