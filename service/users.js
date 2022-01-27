@@ -78,6 +78,10 @@ class Users {
             .from("users")
             .where({ username: username })
             .then((data) => data[0]);
+        if (user === undefined) {
+            let err = "Incorrect username or password, Please try again!";
+            return err;
+        }
         if (await bcrypt.compare(password, user.password)) {
             let payload = {
                 id: user.id,
