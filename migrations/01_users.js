@@ -11,6 +11,7 @@ exports.up = function (knex) {
     table.integer("postCode");
     table.integer("tel");
     table.string("role");
+    table.boolean("status");
     table.timestamps(false, true);
   });
 };

@@ -10,10 +10,16 @@ exports.up = function (knex) {
     table.string("name");
     table.string("type");
     table.date("sowing_date");
+    table.date("irrigation_date");
+    table.date("grooming_date");
     table.date("harvest_date");
     table.string("yield");
     table.string("contribution");
     table.binary("image");
+    table.boolean("sowing");
+    table.boolean("irrigation");
+    table.boolean("grooming");
+    table.boolean("harvest");
     table.timestamps(false, true);
   });
 };
