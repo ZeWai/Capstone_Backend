@@ -13,7 +13,7 @@ module.exports = (knex) => {
             console.log(payload)
             let user = await knex
                 .select('*')
-                .from('admin')
+                .from('users')
                 .where({
                     id: payload.id
                 })
