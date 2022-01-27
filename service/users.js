@@ -17,11 +17,10 @@ class Users {
     Role,
     Name,
     Address,
-    Size,
     Icon,
     Image,
     Area,
-    ZoneSize
+    Size
   ) {
     try {
       let checkExsit = await this.knex("users")
@@ -46,7 +45,6 @@ class Users {
           name: Name,
           users_id: userId[0].id,
           address: Address,
-          size: Size,
           icon: Icon,
           image: Image,
         };
@@ -55,7 +53,7 @@ class Users {
         let zoneInsert = {
           users_id: userId[0].id,
           area: Area,
-          size: ZoneSize,
+          size: Size
         };
         await this.knex("zone").insert(zoneInsert);
 
@@ -103,10 +101,10 @@ class Users {
   }
 
   //get single user
-  async usersSingle(username) {
+  async usersSigle(Name) {
     let user = await this.knex("user_info")
       .select("*")
-      .where({ name: username });
+      .where({ name: Name });
     if (user.length == 0) {
       let err = "User does not exist!";
       return err;

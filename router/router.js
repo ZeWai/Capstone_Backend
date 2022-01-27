@@ -27,16 +27,14 @@ class Router {
                 req.body.email,
                 req.body.password,
                 req.body.postCode,
-                req.body.contact,
+                req.body.tel,
                 req.body.role,
                 req.body.name,
                 req.body.address,
-                req.body.size,
-                req.body.date_opened,
                 req.body.icon,
                 req.body.image,
-                req.body.soil_planting,
-                req.body.area
+                req.body.area,
+                req.body.size
             )
             .then((data) => res.json(data))
     }
