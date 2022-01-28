@@ -10,22 +10,19 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex("zone").insert([
         {
-          id: 1,
           users_id: 1,
-          area: "[Zone A,Zone B,Zone C,Zone D]",
-          size: "[100,150,300,550]",
+          area: "A",
+          size: 100,
         },
         {
-          id: 2,
-          users_id: 2,
-          area: "NA",
-          size: "NA",
+          users_id: 1,
+          area: "B",
+          size: "200",
         },
         {
-          id: 3,
-          users_id: 3,
-          area: "NA",
-          size: "NA",
+          users_id: 1,
+          area: "C",
+          size: "300",
         },
       ]);
     });

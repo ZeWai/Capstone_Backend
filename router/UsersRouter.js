@@ -1,8 +1,8 @@
 const express = require("express");
 
-class Router {
-  constructor(users, auth) {
-    (this.users = users), (this.auth = auth);
+class UsersRouter {
+  constructor(usersService, auth) {
+    (this.usersService = usersService), (this.auth = auth);
   }
 
   router() {
@@ -14,13 +14,13 @@ class Router {
     router.post("/login", this.login.bind(this));
     //get user info
     router.get("/users", this.usersAll.bind(this));
-    router.get("/users/:name", this.usersSigle.bind(this));
+    router.get("/users/:name", this.usersSingle.bind(this));
 
     return router;
   }
 
   signup(req, res) {
-    return this.users
+    return this.usersService
       .signup(
         req.body.username,
         req.body.email,
@@ -39,20 +39,20 @@ class Router {
   }
 
   login(req, res) {
-    return this.users
+    return this.usersService
       .login(req.body.username, req.body.password)
       .then((token) => (token ? res.json(token) : res.sendStatus(401)));
   }
 
   usersAll(req, res) {
-    return this.users.usersAll().then((data) => res.json(data));
+    return this.usersService.usersAll().then((data) => res.json(data));
   }
 
-  usersSigle(req, res) {
-    return this.users
+  usersSingle(req, res) {
+    return this.usersService
       .usersSigle(req.params.name)
       .then((data) => res.json(data));
   }
 }
 
-module.exports = Router;
+module.exports = UsersRouter;
