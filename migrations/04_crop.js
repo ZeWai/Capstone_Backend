@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("crop", (table) => {
     table.increments("id").unique();
-    table.integer("zone_id").unsigned().unique();
+    table.integer("zone_id").unsigned();
     table.foreign("zone_id").references("zone.id");
     table.string("name");
     table.string("type");
