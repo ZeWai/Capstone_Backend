@@ -16,6 +16,7 @@ class Users {
         PostCode,
         Tel,
         Role,
+        Status,
         Name,
         Address,
         Icon,
@@ -36,6 +37,7 @@ class Users {
                     postCode: PostCode,
                     tel: Tel,
                     role: Role,
+                    status: Status
                 };
                 await this.knex("users").insert(usersInsert);
 
@@ -107,10 +109,10 @@ class Users {
     }
 
     //get single user
-    async usersSigle(Name) {
+    async usersSigle(id) {
         let user = await this.knex("user_info")
             .select("*")
-            .where({ name: Name });
+            .where({ users_id: id });
         if (user.length == 0) {
             let err = "User does not exist!";
             return err;
