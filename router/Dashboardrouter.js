@@ -1,3 +1,5 @@
+
+
 class DashboardRouter {
     constructor(dashboardService, express){
         this.dashboardService = dashboardService;
@@ -6,17 +8,20 @@ class DashboardRouter {
 
     router(){
         let router = this.express.Router();
-        router.get("/overview", this.get.bind(this));
-
+        router.get("/harvest", this.getharvest.bind(this));
+        router.get("/growing", this.getgrowing.bind(this));
+        router.get("/sow", this.getsow.bind(this));
         return router;
     }
 
 
 
-get(req, res){
-    return this.bookService
+getharvest(req, res){
+    console.log("at dash router")
+    return this.dashboardService
       .count(1)
       .then((data) => {
+          console.log("atdashroutethen", data)
         res.json(data);
       })
       .catch((err) => {
@@ -24,7 +29,34 @@ get(req, res){
         return res.json(err);
       });
     }
-}
 
+
+getgrowing(req, res){
+    console.log("at dash router")
+    return this.dashboardService
+      .count2(1)
+      .then((data) => {
+          console.log("atdashroutethen", data)
+        res.json(data);
+      })
+      .catch((err) => {
+        res.status(500);
+        return res.json(err);
+      });
+    }
+getsow(req, res){
+    console.log("at dash router")
+    return this.dashboardService
+        .count3(1)
+        .then((data) => {
+            console.log("atdashroutethen", data)
+        res.json(data);
+        })
+        .catch((err) => {
+        res.status(500);
+        return res.json(err);
+        });
+    }
+}
 
 module.exports = DashboardRouter;

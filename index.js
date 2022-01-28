@@ -5,7 +5,7 @@ const knex = require("knex")(knexfile);
 const auth = require("./auth")(knex);
 const app = express();
 const port = 8080;
-const ip = "localhost";
+// const ip = "localhost";
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -29,12 +29,11 @@ app.use("/api/crops/", new CropRouter(cropService, express).router());
 const DashboardRouter = require("./router/Dashboardrouter.js");
 const DashboardService = require("./service/DashboardService.js");
 const dashboardService = new DashboardService(knex);
-const Users = require("./service/users");
-const users = new Users(knex);
-//set up router file
-app.use("/api", new Router(users, auth).router());
-app.use("/dashboard", new DashboardRouter(dashboardService, express).router());
 
-app.listen(port, ip, () => {
+//set up router file
+
+app.use("/api/dashboard", new DashboardRouter(dashboardService, express).router());
+
+app.listen(port, () => {
   console.log(`Application listening to port ${port}`);
 });
