@@ -26,6 +26,14 @@ const cropService = new CropService(knex);
 app.use("/api", new UsersRouter(usersService, auth).router());
 app.use("/api/crops/", new CropRouter(cropService, express).router());
 
+const DashboardRouter = require("./router/Dashboardrouter.js");
+const DashboardService = require("./service/DashboardService.js");
+const dashboardService = new DashboardService(knex);
+const Users = require("./service/users");
+const users = new Users(knex);
+//set up router file
+app.use("/api", new Router(users, auth).router());
+app.use("/dashboard", new DashboardRouter(dashboardService, express).router());
 
 app.listen(port, ip, () => {
   console.log(`Application listening to port ${port}`);

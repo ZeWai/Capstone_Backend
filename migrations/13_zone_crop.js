@@ -7,7 +7,7 @@ exports.up = function (knex) {
     table.increments("id").unique();
     table.integer("crop_id").unsigned().unique();
     table.foreign("crop_id").references("crop.id");
-    table.integer("zone_id").unsigned().unique();
+    table.integer("zone_id").unsigned();
     table.foreign("zone_id").references("zone.id");
     table.integer("sowing_date");
     table.integer("irrigation_date");
