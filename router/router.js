@@ -14,7 +14,7 @@ class Router {
     router.post("/login", this.login.bind(this));
     //get user info
     router.get("/users", this.usersAll.bind(this));
-    router.get("/users/:id", this.usersSigle.bind(this));
+    router.get("/users/:userId", this.usersSigle.bind(this));
 
     return router;
   }
@@ -33,6 +33,7 @@ class Router {
         req.body.address,
         req.body.icon,
         req.body.image,
+        req.body.assigned,
         req.body.area,
         req.body.size
       )
@@ -51,7 +52,7 @@ class Router {
 
   usersSigle(req, res) {
     return this.users
-      .usersSigle(req.params.id)
+      .usersSigle(req.params.userId)
       .then((data) => res.json(data));
   }
 }

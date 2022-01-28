@@ -21,6 +21,7 @@ class Users {
         Address,
         Icon,
         Image,
+        Assigned,
         Area,
         Size
     ) {
@@ -51,15 +52,23 @@ class Users {
                     address: Address,
                     icon: Icon,
                     image: Image,
+                    assigned: Assigned
                 };
                 await this.knex("user_info").insert(infoInsert);
-
                 let zoneInsert = {
                     users_id: userId[0].id,
                     area: Area,
                     size: Size
                 };
-                await this.knex("zone").insert(zoneInsert);
+                Area = JSON.parse(Area)
+                Size = JSON.parse(Size)
+                for (let i = 0; i < Area.length; i++) {
+                    await this.knex("zone").insert({
+                        users_id: userId[0].id,
+                        area: Area[i],
+                        size: Size[i]
+                    });
+                }
 
                 let err = "Signup success!";
                 return err;
@@ -109,10 +118,10 @@ class Users {
     }
 
     //get single user
-    async usersSigle(id) {
+    async usersSigle(userId) {
         let user = await this.knex("user_info")
             .select("*")
-            .where({ users_id: id });
+            .where({ users_id: userId });
         if (user.length == 0) {
             let err = "User does not exist!";
             return err;
