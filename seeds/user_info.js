@@ -7,6 +7,7 @@ exports.seed = function (knex) {
   return knex("user_info")
     .del()
     .then(function () {
+      let assigned = ["Metroplaza"];
       // Inserts seed entries
       return knex("user_info").insert([
         {
@@ -17,6 +18,7 @@ exports.seed = function (knex) {
             "Level 5 Sky Garden, Metroplaza, 223 Hing Fong Road, Kwai Chung",
           icon: null,
           image: null,
+          assigned: "NA",
         },
         {
           id: 2,
@@ -25,6 +27,7 @@ exports.seed = function (knex) {
           address: "Admin Garden, Admin Plaza, Tuen Mun",
           icon: null,
           image: null,
+          assigned: "NA",
         },
         {
           id: 3,
@@ -33,6 +36,7 @@ exports.seed = function (knex) {
           address: "Farmer Pool, Happy Plaza, Tuen Mun",
           icon: null,
           image: null,
+          assigned: assigned,
         },
       ]);
     });

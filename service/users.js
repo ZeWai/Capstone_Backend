@@ -16,10 +16,12 @@ class Users {
         PostCode,
         Tel,
         Role,
+        Status,
         Name,
         Address,
         Icon,
         Image,
+        Assigned,
         Area,
         Size
     ) {
@@ -36,6 +38,7 @@ class Users {
                     postCode: PostCode,
                     tel: Tel,
                     role: Role,
+                    status: Status
                 };
                 await this.knex("users").insert(usersInsert);
 
@@ -49,15 +52,19 @@ class Users {
                     address: Address,
                     icon: Icon,
                     image: Image,
+                    assigned: Assigned
                 };
                 await this.knex("user_info").insert(infoInsert);
 
-                let zoneInsert = {
-                    users_id: userId[0].id,
-                    area: Area,
-                    size: Size
-                };
-                await this.knex("zone").insert(zoneInsert);
+                Area = JSON.parse(Area)
+                Size = JSON.parse(Size)
+                for (let i = 0; i < Area.length; i++) {
+                    await this.knex("zone").insert({
+                        users_id: userId[0].id,
+                        area: Area[i],
+                        size: Size[i]
+                    });
+                }
 
                 let err = "Signup success!";
                 return err;

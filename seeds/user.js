@@ -26,6 +26,7 @@ exports.seed = function (knex) {
           postCode: "852",
           tel: "12345678",
           role: "client",
+          status: true,
         },
         {
           id: 2,
@@ -35,6 +36,7 @@ exports.seed = function (knex) {
           postCode: "853",
           tel: "87654321",
           role: "admin",
+          status: true,
         },
         {
           id: 3,
@@ -44,6 +46,7 @@ exports.seed = function (knex) {
           postCode: "853",
           tel: "43218765",
           role: "farmer",
+          status: true,
         },
       ]);
     });

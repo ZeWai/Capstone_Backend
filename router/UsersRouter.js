@@ -1,8 +1,8 @@
 const express = require("express");
 
-class Router {
-  constructor(users, auth) {
-    (this.users = users), (this.auth = auth);
+class UsersRouter {
+  constructor(usersService, auth) {
+    (this.usersService = usersService), (this.auth = auth);
   }
 
   router() {
@@ -14,13 +14,13 @@ class Router {
     router.post("/login", this.login.bind(this));
     //get user info
     router.get("/users", this.usersAll.bind(this));
-    router.get("/users/:name", this.usersSigle.bind(this));
+    router.get("/users/:userId", this.usersSigle.bind(this));
 
     return router;
   }
 
   signup(req, res) {
-    return this.users
+    return this.usersService
       .signup(
         req.body.username,
         req.body.email,
@@ -28,10 +28,12 @@ class Router {
         req.body.postCode,
         req.body.tel,
         req.body.role,
+        req.body.status,
         req.body.name,
         req.body.address,
         req.body.icon,
         req.body.image,
+        req.body.assigned,
         req.body.area,
         req.body.size
       )
@@ -39,20 +41,20 @@ class Router {
   }
 
   login(req, res) {
-    return this.users
+    return this.usersService
       .login(req.body.username, req.body.password)
       .then((token) => (token ? res.json(token) : res.sendStatus(401)));
   }
 
   usersAll(req, res) {
-    return this.users.usersAll().then((data) => res.json(data));
+    return this.usersService.usersAll().then((data) => res.json(data));
   }
 
   usersSigle(req, res) {
     return this.users
-      .usersSigle(req.params.name)
+      .usersSigle(req.params.userId)
       .then((data) => res.json(data));
   }
 }
 
-module.exports = Router;
+module.exports = UsersRouter;
