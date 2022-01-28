@@ -50,15 +50,9 @@ class UsersRouter {
     return this.usersService.usersAll().then((data) => res.json(data));
   }
 
-<<<<<<< HEAD:router/router.js
   usersSigle(req, res) {
     return this.users
       .usersSigle(req.params.userId)
-=======
-  usersSingle(req, res) {
-    return this.usersService
-      .usersSigle(req.params.name)
->>>>>>> fd4b30e148774a2aafee8d716dc422b83b43d182:router/UsersRouter.js
       .then((data) => res.json(data));
   }
 }

@@ -3,8 +3,8 @@ class CropService {
     this.knex = knex;
   }
 
-  getCrop(usersId, area) {
-    return this.knex("zone")
+  async getCrop(usersId, area) {
+    return await this.knex("zone")
       .select("*")
       .where({ users_id: usersId, area: area })
       .returning("id")
@@ -20,8 +20,8 @@ class CropService {
       });
   }
 
-  addCrop(usersId, area, cropinfo) {
-    return this.knex("zone")
+  async addCrop(usersId, area, cropinfo) {
+    return await this.knex("zone")
       .select("*")
       .where({ users_id: usersId, area: area })
       .returning("id")
@@ -51,8 +51,8 @@ class CropService {
 
 module.exports = CropService;
 
-const knexFile = require("../knexfile").development;
-const knex = require("knex")(knexFile);
-let cropService = new CropService(knex);
-
-cropService.getCrop(1, "A").then((a) => console.log(a));
+//const knexFile = require("../knexfile").development;
+//const knex = require("knex")(knexFile);
+//let cropService = new CropService(knex);
+//
+//cropService.getCrop(1, "A").then((a) => console.log(a));

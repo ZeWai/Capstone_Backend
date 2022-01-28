@@ -55,6 +55,7 @@ class Users {
                     assigned: Assigned
                 };
                 await this.knex("user_info").insert(infoInsert);
+
                 Area = JSON.parse(Area)
                 Size = JSON.parse(Size)
                 for (let i = 0; i < Area.length; i++) {

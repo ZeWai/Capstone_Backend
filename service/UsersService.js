@@ -2,10 +2,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
-class UsersService {
+class Users {
   constructor(knex) {
     this.knex = knex;
   }
+
 
   //post signup user
   async signup(
@@ -15,19 +16,21 @@ class UsersService {
     PostCode,
     Tel,
     Role,
+    Status,
     Name,
     Address,
     Icon,
     Image,
+    Assigned,
     Area,
     Size
   ) {
     let hashedPassword = await bcrypt.hash(Password, 10);
     try {
-      let checkExist = await this.knex("users")
+      let checkExsit = await this.knex("users")
         .select("username")
         .where({ username: Username });
-      if (checkExist.length == 0) {
+      if (checkExsit.length == 0) {
         let usersInsert = {
           username: Username,
           email: Email,
@@ -35,6 +38,7 @@ class UsersService {
           postCode: PostCode,
           tel: Tel,
           role: Role,
+          status: Status
         };
         await this.knex("users").insert(usersInsert);
 
@@ -48,15 +52,19 @@ class UsersService {
           address: Address,
           icon: Icon,
           image: Image,
+          assigned: Assigned
         };
         await this.knex("user_info").insert(infoInsert);
 
-        let zoneInsert = {
-          users_id: userId[0].id,
-          area: Area,
-          size: Size,
-        };
-        await this.knex("zone").insert(zoneInsert);
+        Area = JSON.parse(Area)
+        Size = JSON.parse(Size)
+        for (let i = 0; i < Area.length; i++) {
+          await this.knex("zone").insert({
+            users_id: userId[0].id,
+            area: Area[i],
+            size: Size[i]
+          });
+        }
 
         let err = "Signup success!";
         return err;
@@ -106,8 +114,10 @@ class UsersService {
   }
 
   //get single user
-  async usersSingle(Name) {
-    let user = await this.knex("user_info").select("*").where({ name: Name });
+  async usersSigle(userId) {
+    let user = await this.knex("user_info")
+      .select("*")
+      .where({ users_id: userId });
     if (user.length == 0) {
       let err = "User does not exist!";
       return err;
@@ -117,4 +127,4 @@ class UsersService {
   }
 }
 
-module.exports = UsersService;
+module.exports = Users;
