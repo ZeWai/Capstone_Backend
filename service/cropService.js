@@ -3,16 +3,44 @@ class CropService {
     this.knex = knex;
   }
 
-  getCrop(users_id) {
-    return this.knex("crop")
+  getCrop(usersId, area) {
+    return this.knex("zone")
       .select("*")
-      .where({ users_id: users_id, course_id: course_id })
-      .then((info) => {
-        if (info.length == 0) {
-          return this.knex("user_booking").insert({
+      .where({ users_id: usersId, area: area })
+      .returning("id")
+      .then((data) => {
+        if (data.length === 1) {
+          return this.knex("crop")
+            .join("zone_crop", { zone_id: "zone_crop.zoned_id" })
+            .select("*")
+            .where({ zone_id: "zone_crop.zoned_id" });
+        } else {
+          throw new Error("Cant getCrop");
+        }
+      });
+  }
+
+  addCrop(usersId, area, cropinfo) {
+    return this.knex("zone")
+      .select("*")
+      .where({ users_id: usersId, area: area })
+      .returning("id")
+      .then((data) => {
+        if (data.length == 0) {
+          return this.knex("crop").insert({
             users_id: users_id,
             course_id: course_id,
             paid: true,
+            zone_id: data[0],
+            name: cropinfo.name,
+            type: cropinfo.type,
+            yield: cropinfo.yield,
+            contribution: cropinfo.contribution,
+            image: cropinfo.image,
+            sowing: false,
+            irrigation: false,
+            grooming: false,
+            harvest: false,
           });
         } else {
           throw new Error("Cant getCrop");
@@ -22,3 +50,9 @@ class CropService {
 }
 
 module.exports = CropService;
+
+const knexFile = require("../knexfile").development;
+const knex = require("knex")(knexFile);
+let cropService = new CropService(knex);
+
+cropService.getCrop(1, "A").then((a) => console.log(a));
