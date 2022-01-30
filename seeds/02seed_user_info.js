@@ -38,6 +38,24 @@ exports.seed = function (knex) {
           image: null,
           assigned: assigned,
         },
+        {
+          id: 4,
+          users_id: 4,
+          name: "HardWork Farmer",
+          address: "HardWork Pool, Sad Plaza, Tin Hau",
+          icon: null,
+          image: null,
+          assigned: assigned,
+        },
+        {
+          id: 5,
+          users_id: 5,
+          name: "Swire",
+          address: "Swire, Swire Bay, CWB",
+          icon: null,
+          image: null,
+          assigned: "NA",
+        },
       ]);
     });
 };

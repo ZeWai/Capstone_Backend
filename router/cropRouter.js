@@ -1,17 +1,16 @@
 const express = require("express");
 
 class CropRouter {
-  constructor(cropService, express) {
-    (this.cropService = cropService), (this.express = express);
+  constructor(cropService) {
+    this.cropService = cropService;
   }
 
   router() {
     let router = express.Router();
     // Get all crops details by user
-    router.get("/:userid", this.getCrop.bind(this));
+    router.get("/", this.getCrop.bind(this));
     // Submit farm planner form
     router.post("/:userid", this.addCrop.bind(this));
-
     return router;
   }
 
@@ -19,7 +18,6 @@ class CropRouter {
     return this.cropService
       .getCrop()
       .then((data) => {
-        // console.log(req);
         res.json(data);
       })
       .catch((err) => {
@@ -30,9 +28,12 @@ class CropRouter {
 
   addCrop(req, res) {
     return this.cropService
-      .addCrop()
+      .addCrop(
+        req.session.passport.user.users_id,
+        req.body.area,
+        req.body.cropinfo
+      )
       .then((data) => {
-        // console.log(req);
         res.json(data);
       })
       .catch((err) => {

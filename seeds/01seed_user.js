@@ -4,12 +4,16 @@
  */
 const bcrypt = require("bcrypt");
 
-const password1 = 'password1'
-const hashpassword1 = bcrypt.hashSync(password1, 10)
-const password2 = 'password2'
-const hashpassword2 = bcrypt.hashSync(password2, 10)
-const password3 = 'password3'
-const hashpassword3 = bcrypt.hashSync(password3, 10)
+const password1 = "password1";
+const hashpassword1 = bcrypt.hashSync(password1, 10);
+const password2 = "password2";
+const hashpassword2 = bcrypt.hashSync(password2, 10);
+const password3 = "password3";
+const hashpassword3 = bcrypt.hashSync(password3, 10);
+const password4 = "password4";
+const hashpassword4 = bcrypt.hashSync(password4, 10);
+const password5 = "password5";
+const hashpassword5 = bcrypt.hashSync(password5, 10);
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
@@ -46,6 +50,26 @@ exports.seed = function (knex) {
           postCode: "853",
           tel: "43218765",
           role: "farmer",
+          status: true,
+        },
+        {
+          id: 4,
+          username: "hardworkfarmer",
+          email: "hardworkfarmer@hardworkfarmer.com",
+          password: hashpassword4,
+          postCode: "852",
+          tel: "43214321",
+          role: "farmer",
+          status: true,
+        },
+        {
+          id: 5,
+          username: "swire",
+          email: "swire@swire.com",
+          password: hashpassword5,
+          postCode: "852",
+          tel: "67896789",
+          role: "client",
           status: true,
         },
       ]);

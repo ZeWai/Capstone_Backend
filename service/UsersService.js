@@ -2,11 +2,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
-class Users {
+class UsersService {
   constructor(knex) {
     this.knex = knex;
   }
-
 
   //post signup user
   async signup(
@@ -38,7 +37,7 @@ class Users {
           postCode: PostCode,
           tel: Tel,
           role: Role,
-          status: Status
+          status: Status,
         };
         await this.knex("users").insert(usersInsert);
 
@@ -52,17 +51,17 @@ class Users {
           address: Address,
           icon: Icon,
           image: Image,
-          assigned: Assigned
+          assigned: Assigned,
         };
         await this.knex("user_info").insert(infoInsert);
 
-        Area = JSON.parse(Area)
-        Size = JSON.parse(Size)
+        Area = JSON.parse(Area);
+        Size = JSON.parse(Size);
         for (let i = 0; i < Area.length; i++) {
           await this.knex("zone").insert({
             users_id: userId[0].id,
             area: Area[i],
-            size: Size[i]
+            size: Size[i],
           });
         }
 
@@ -114,7 +113,7 @@ class Users {
   }
 
   //get single user
-  async usersSigle(userId) {
+  async usersSingle(userId) {
     let user = await this.knex("user_info")
       .select("*")
       .where({ users_id: userId });
@@ -127,4 +126,4 @@ class Users {
   }
 }
 
-module.exports = Users;
+module.exports = UsersService;
