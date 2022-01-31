@@ -113,7 +113,7 @@ class UsersService {
   }
 
   //get single user
-  async usersSingle(userId) {
+  async userInfo(userId) {
     let user = await this.knex("user_info")
       .select("*")
       .where({ users_id: userId });
