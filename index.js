@@ -40,7 +40,7 @@ const dashboardService = new DashboardService(knex);
 
 //set up router file
 
-app.use("/api/dashboard", new DashboardRouter(dashboardService, express).router());
+app.use("/api/dashboard", new DashboardRouter(dashboardService, auth, express).router());
 
 app.listen(port, () => {
   console.log(`Application listening to port ${port}`);

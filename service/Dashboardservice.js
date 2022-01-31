@@ -2,7 +2,18 @@ class DashboardService {
     constructor(knex){
         this.knex = knex;
     }
-
+    async count0(userId) {
+        let user = await this.knex("user_info")
+          .select("*")
+          .where({ users_id: userId });
+        if (user.length == 0) {
+          let err = "User does not exist!";
+          return err;
+        } else {
+          return user;
+        }
+      }
+    
 
     async count(id){
         console.log("at dashservice",id)

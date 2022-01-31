@@ -1,28 +1,35 @@
 
 
 class DashboardRouter {
-    constructor(dashboardService, express){
+    constructor(dashboardService,auth, express){
         this.dashboardService = dashboardService;
         this.express = express;
+        this.auth= auth;
     }
 
     router(){
         let router = this.express.Router();
-        router.get("/harvest", this.getharvest.bind(this));
-        router.get("/growing", this.getgrowing.bind(this));
-        router.get("/sow", this.getsow.bind(this));
-        router.get("/productivity", this.getproductivity.bind(this));
-        router.get("/progress", this.getprogress.bind(this));
-        router.get("/progressS/:id", this.getprogressS.bind(this));
+        router.get("/client", this.auth.authenticate(),this.getclient.bind(this));
+        router.get("/harvest", this.auth.authenticate(),this.getharvest.bind(this));
+        router.get("/growing",this.auth.authenticate(), this.getgrowing.bind(this));
+        router.get("/sow", this.auth.authenticate(),this.getsow.bind(this));
+        router.get("/productivity", this.auth.authenticate(), this.getproductivity.bind(this));
+        router.get("/progress", this.auth.authenticate(), this.getprogress.bind(this));
+        router.get("/progressS/:id",this.getprogressS.bind(this));
         return router;
     }
-
+getclient(req, res) {
+    console.log("at dash router22222222")
+return this.usersService
+    .count0(req.user[0].id)
+    .then((data) => res.json(data));
+}
 
 
 getharvest(req, res){
     console.log("at dash router")
     return this.dashboardService
-      .count(1)
+      .count(req.user[0].id)
       .then((data) => {
           console.log("atdashroutethen", data)
         res.json(data);
@@ -37,7 +44,7 @@ getharvest(req, res){
 getgrowing(req, res){
     console.log("at dash router")
     return this.dashboardService
-      .count2(1)
+      .count2(req.user[0].id)
       .then((data) => {
           console.log("atdashroutethen2", data)
         res.json(data);
@@ -50,7 +57,7 @@ getgrowing(req, res){
 getsow(req, res){
     console.log("at dash router")
     return this.dashboardService
-        .count3(1)
+        .count3(req.user[0].id)
         .then((data) => {
             console.log("atdashroutethen3", data)
         res.json(data);
@@ -64,7 +71,7 @@ getsow(req, res){
 getproductivity(req, res){
     console.log("at dash router4")
     return this.dashboardService
-        .count4(1)
+        .count4(req.user[0].id)
         .then((data) => {
             console.log("atdashroutethen4", data)
         res.json(data);
@@ -78,7 +85,7 @@ getproductivity(req, res){
 getprogress(req, res){
     console.log("at dash router5")
     return this.dashboardService
-        .count5(1)
+        .count5(req.user[0].id)
         .then((data) => {
             console.log("atdashroutethen5", data)
         res.json(data);
