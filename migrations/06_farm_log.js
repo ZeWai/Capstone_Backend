@@ -4,12 +4,12 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable("farm_log", (table) => {
-    table.increments("id").unique();
-    table.integer("farmer_id").unsigned().unique();
+    table.increments("id");
+    table.integer("farmer_id").unsigned();
     table.foreign("farmer_id").references("users.id");
-    table.integer("users_id").unsigned().unique();
+    table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
-    table.integer("zone_id").unsigned().unique();
+    table.integer("zone_id").unsigned();
     table.foreign("zone_id").references("zone.id");
     table.time("time");
     table.date("date");

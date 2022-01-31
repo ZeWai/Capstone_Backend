@@ -14,7 +14,7 @@ class UsersRouter {
     router.post("/login", this.login.bind(this));
     //get user info
     router.get("/users", this.usersAll.bind(this));
-    router.get("/user/single", this.usersSingle.bind(this));
+    router.get("/users/:userId", this.userInfo.bind(this));
 
     return router;
   }
@@ -50,11 +50,12 @@ class UsersRouter {
     return this.usersService.usersAll().then((data) => res.json(data));
   }
 
-  usersSingle(req, res) {
+  userInfo(req, res) {
     return this.usersService
-      .usersSigle(1)
+      .userInfo(req.params.userId)
       .then((data) => res.json(data));
   }
+
 }
 
 module.exports = UsersRouter;

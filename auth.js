@@ -10,7 +10,6 @@ module.exports = (knex) => {
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
         },
         async (payload, done) => {
-            console.log(payload)
             let user = await knex
                 .select('*')
                 .from('users')

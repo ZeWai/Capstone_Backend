@@ -3,22 +3,25 @@ class CropService {
     this.knex = knex;
   }
 
-  async getCrop(usersId, area) {
-    return await this.knex("zone")
+  async getCrop() {
+    let crops = await this.knex
       .select("*")
-      .where({ users_id: usersId, area: area })
-      .returning("id")
-      .then((data) => {
-        if (data.length === 1) {
-          return this.knex("crop")
-            .join("zone_crop", { zone_id: "zone_crop.zoned_id" })
-            .select("*")
-            .where({ zone_id: "zone_crop.zoned_id" });
-        } else {
-          throw new Error("Cant getCrop");
-        }
-      });
+      .from("zone")
+      .innerJoin("crop", "zone.id", "crop.zone_id")
+      .innerJoin("zone_crop", "zone.id", "zone_crop.zone_id");
+    return crops;
   }
+
+  //   async getCrop(usersId, area) {
+  //     return await this.knex("zone")
+  //       .select("*")
+  //       .where("users_id", usersId)
+  //       .where("area", area)
+  //       .then((data) => {
+  //         console.log(data);
+  //         return this.knex("crop").select("*").where("zone_id", data[0].id);
+  //       });
+  //   }
 
   async addCrop(usersId, area, cropinfo) {
     return await this.knex("zone")
@@ -48,11 +51,4 @@ class CropService {
       });
   }
 }
-
 module.exports = CropService;
-
-//const knexFile = require("../knexfile").development;
-//const knex = require("knex")(knexFile);
-//let cropService = new CropService(knex);
-//
-//cropService.getCrop(1, "A").then((a) => console.log(a));

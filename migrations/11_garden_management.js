@@ -13,6 +13,9 @@ exports.up = function (knex) {
     table.boolean("s6q3");
     table.string("s6q3_fertiliser");
     table.integer("s6q3_quantity");
+    table.string("s6q3_remarks");
+    table.boolean("s6q4");
+    table.string("s6q4_remarks");
     table.timestamps(false, true);
   });
 };
