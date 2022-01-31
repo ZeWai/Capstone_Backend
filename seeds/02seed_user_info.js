@@ -18,7 +18,7 @@ exports.seed = function (knex) {
             "Level 5 Sky Garden, Metroplaza, 223 Hing Fong Road, Kwai Chung",
           icon: null,
           image: null,
-          assigned: "NA",
+          // assigned: "NA",
         },
         {
           id: 2,
@@ -27,7 +27,7 @@ exports.seed = function (knex) {
           address: "Admin Garden, Admin Plaza, Tuen Mun",
           icon: null,
           image: null,
-          assigned: "NA",
+          // assigned: "NA",
         },
         {
           id: 3,
@@ -36,7 +36,7 @@ exports.seed = function (knex) {
           address: "Farmer Pool, Happy Plaza, Tuen Mun",
           icon: null,
           image: null,
-          assigned: assigned,
+          // assigned: assigned,
         },
         {
           id: 4,
@@ -45,7 +45,7 @@ exports.seed = function (knex) {
           address: "HardWork Pool, Sad Plaza, Tin Hau",
           icon: null,
           image: null,
-          assigned: assigned,
+          // assigned: assigned,
         },
         {
           id: 5,
@@ -54,7 +54,7 @@ exports.seed = function (knex) {
           address: "Swire, Swire Bay, CWB",
           icon: null,
           image: null,
-          assigned: "NA",
+          // assigned: "NA",
         },
       ]);
     });

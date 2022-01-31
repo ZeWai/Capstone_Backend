@@ -55,6 +55,7 @@ class UsersRouter {
       .userInfo(req.params.userId)
       .then((data) => res.json(data));
   }
+
 }
 
 module.exports = UsersRouter;

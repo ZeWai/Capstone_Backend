@@ -16,20 +16,24 @@ app.use(auth.initialize());
 const UsersRouter = require("./router/UsersRouter");
 const CropRouter = require("./router/CropRouter");
 const FarmlogRouter = require("./router/FarmlogRouter");
+const ClientNameRouter = require("./router/ClientNameRouter")
 
 const UsersService = require("./service/UsersService");
 const CropService = require("./service/CropService");
 const FarmlogService = require("./service/FarmlogService");
+const ClientNameService = require("./service/ClientNameService")
 
 const usersService = new UsersService(knex);
 const cropService = new CropService(knex);
 const farmlogService = new FarmlogService(knex);
+const clientNameService = new ClientNameService(knex);
 
 //set up router file
 app.use("/api", new UsersRouter(usersService, auth).router());
 app.use("/api/crops/", new CropRouter(cropService).router());
 app.use("/api/farmlog/", new FarmlogRouter(farmlogService).router());
+app.use("/api/clientname/", new ClientNameRouter(clientNameService).router());
 
 app.listen(port, ip, () => {
-  console.log(`Application listening to port ${port}`);
+    console.log(`Application listening to port ${port}`);
 });

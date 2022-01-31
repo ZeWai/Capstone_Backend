@@ -11,7 +11,7 @@ exports.up = function (knex) {
     table.string("address");
     table.binary("icon");
     table.binary("image");
-    table.string("assigned");
+    // table.string("assigned");
     table.timestamps(false, true);
   });
 };

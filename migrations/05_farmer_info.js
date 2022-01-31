@@ -4,10 +4,10 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable("farmer_info", (table) => {
-    table.increments("id").unique();
-    table.integer("users_id").unsigned().unique();
-    table.foreign("users_id").references("users.id");
-    table.timestamps(false, true);
+    table.integer("farmer_id").unsigned();
+    table.foreign("farmer_id").references("users.id");
+    table.integer("client_id").unsigned();
+    table.foreign("client_id").references("users.id");
   });
 };
 
