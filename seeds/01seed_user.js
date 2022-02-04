@@ -1,7 +1,3 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 const bcrypt = require("bcrypt");
 
 const password1 = "password1";

@@ -20,7 +20,6 @@ class UsersService {
     Address,
     Icon,
     Image,
-    Assigned,
     Area,
     Size
   ) {
@@ -50,8 +49,7 @@ class UsersService {
           users_id: userId[0].id,
           address: Address,
           icon: Icon,
-          image: Image,
-          assigned: Assigned,
+          image: Image
         };
         await this.knex("user_info").insert(infoInsert);
 

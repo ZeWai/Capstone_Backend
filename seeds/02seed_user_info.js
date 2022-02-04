@@ -1,13 +1,8 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex("user_info")
     .del()
     .then(function () {
-      let assigned = ["Metroplaza"];
       // Inserts seed entries
       return knex("user_info").insert([
         {
@@ -17,8 +12,7 @@ exports.seed = function (knex) {
           address:
             "Level 5 Sky Garden, Metroplaza, 223 Hing Fong Road, Kwai Chung",
           icon: null,
-          image: null,
-          // assigned: "NA",
+          image: null
         },
         {
           id: 2,
@@ -26,8 +20,7 @@ exports.seed = function (knex) {
           name: "Mio Fong",
           address: "Admin Garden, Admin Plaza, Tuen Mun",
           icon: null,
-          image: null,
-          // assigned: "NA",
+          image: null
         },
         {
           id: 3,
@@ -35,8 +28,7 @@ exports.seed = function (knex) {
           name: "Happy Farmer",
           address: "Farmer Pool, Happy Plaza, Tuen Mun",
           icon: null,
-          image: null,
-          // assigned: assigned,
+          image: null
         },
         {
           id: 4,
@@ -44,8 +36,7 @@ exports.seed = function (knex) {
           name: "HardWork Farmer",
           address: "HardWork Pool, Sad Plaza, Tin Hau",
           icon: null,
-          image: null,
-          // assigned: assigned,
+          image: null
         },
         {
           id: 5,
@@ -53,8 +44,7 @@ exports.seed = function (knex) {
           name: "Swire",
           address: "Swire, Swire Bay, CWB",
           icon: null,
-          image: null,
-          // assigned: "NA",
+          image: null
         },
       ]);
     });

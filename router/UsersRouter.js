@@ -33,7 +33,6 @@ class UsersRouter {
         req.body.address,
         req.body.icon,
         req.body.image,
-        req.body.assigned,
         req.body.area,
         req.body.size
       )

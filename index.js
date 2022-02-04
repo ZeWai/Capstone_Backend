@@ -5,7 +5,7 @@ const knex = require("knex")(knexfile);
 const auth = require("./auth")(knex);
 const app = express();
 const port = 8080;
-// const ip = "localhost";
+const ip = "localhost";
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -42,6 +42,6 @@ const dashboardService = new DashboardService(knex);
 
 app.use("/api/dashboard", new DashboardRouter(dashboardService, auth, express).router());
 
-app.listen(port, () => {
+app.listen(port, ip, () => {
   console.log(`Application listening to port ${port}`);
 });
