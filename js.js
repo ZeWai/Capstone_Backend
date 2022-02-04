@@ -1,7 +1,3 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.up = function (knex) {
     return knex.schema.createTable('basic_info', (table) => {
         table.increments('id').unique();
@@ -15,21 +11,10 @@ exports.up = function (knex) {
     })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.down = function (knex) {
     return knex.schema.dropTable('basic_info')
 };
 
-
-
-
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.up = function (knex) {
     return knex.schema.createTable('farmer_info', (table) => {
         table.increments('id').unique();
@@ -41,18 +26,10 @@ exports.up = function (knex) {
     })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.down = function (knex) {
     return knex.schema.dropTable('farmer_info')
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.up = function (knex) {
     return knex.schema.createTable('farm_log', (table) => {
         table.increments('id').unique();
@@ -66,10 +43,6 @@ exports.up = function (knex) {
     })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 exports.down = function (knex) {
     return knex.schema.dropTable('farm_log')
 };
