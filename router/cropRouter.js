@@ -1,16 +1,17 @@
 const express = require("express");
 
 class CropRouter {
-  constructor(cropService) {
+  constructor(cropService, auth) {
     this.cropService = cropService;
+    this.auth = auth;
   }
 
   router() {
     let router = express.Router();
     // Get all crops details by user
-    router.get("/", this.getCrop.bind(this));
+    router.get("/", this.auth.authenticate(), this.getCrop.bind(this));
     // Submit farm planner form
-    router.post("/:userid", this.addCrop.bind(this));
+    router.post("/:userid", this.auth.authenticate(), this.addCrop.bind(this));
     return router;
   }
 

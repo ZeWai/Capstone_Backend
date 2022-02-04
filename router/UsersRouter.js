@@ -13,8 +13,8 @@ class UsersRouter {
     //login
     router.post("/login", this.login.bind(this));
     //get user info
-    router.get("/users", this.usersAll.bind(this));
-    router.get("/users/:userId", this.userInfo.bind(this));
+    router.get("/users", this.auth.authenticate(), this.usersAll.bind(this));
+    router.get("/users/:userId", this.auth.authenticate(), this.userInfo.bind(this));
 
     return router;
   }

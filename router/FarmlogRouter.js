@@ -3,20 +3,21 @@
 const express = require("express");
 
 class FarmlogRouter {
-  constructor(farmlogService) {
+  constructor(farmlogService, auth) {
     this.farmlogService = farmlogService;
+    this.auth = auth;
   }
 
   router() {
     let router = express.Router();
-    router.get("/", this.get.bind(this));
-    router.post("/s1", this.post_s1.bind(this));
-    router.post("/s2", this.post_s2.bind(this));
-    router.post("/s3", this.post_s3.bind(this));
-    router.post("/s4", this.post_s4.bind(this));
-    router.post("/s5", this.post_s5.bind(this));
-    router.post("/s6", this.post_s6.bind(this));
-    router.post("/s7", this.post_s7.bind(this));
+    router.get("/", this.auth.authenticate(), this.get.bind(this));
+    router.post("/s1", this.auth.authenticate(), this.post_s1.bind(this));
+    router.post("/s2", this.auth.authenticate(), this.post_s2.bind(this));
+    router.post("/s3", this.auth.authenticate(), this.post_s3.bind(this));
+    router.post("/s4", this.auth.authenticate(), this.post_s4.bind(this));
+    router.post("/s5", this.auth.authenticate(), this.post_s5.bind(this));
+    router.post("/s6", this.auth.authenticate(), this.post_s6.bind(this));
+    router.post("/s7", this.auth.authenticate(), this.post_s7.bind(this));
 
     return router;
   }
