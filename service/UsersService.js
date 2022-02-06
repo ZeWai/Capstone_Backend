@@ -51,7 +51,6 @@ class UsersService {
           icon: Icon,
           image: Image
         };
-        console.log(infoInsert)
         await this.knex("user_info").insert(infoInsert);
         //insert zone table
         let zoneInsert = [];
