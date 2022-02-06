@@ -1,12 +1,12 @@
 exports.up = function (knex) {
   return knex.schema.createTable("user_info", (table) => {
-    table.increments("id").unique();
+    table.increments("id").primary();
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
     table.string("name");
     table.string("address");
-    table.binary("icon");
-    table.binary("image");
+    table.string("icon");
+    table.string("image");
     table.timestamps(false, true);
   });
 };

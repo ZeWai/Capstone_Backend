@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable("zone", (table) => {
-    table.increments("id").unique();
+    table.increments("id").primary();
     table.integer("users_id").references("users.id");
     table.string("area");
     table.string("size");

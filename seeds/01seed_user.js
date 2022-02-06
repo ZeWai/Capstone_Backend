@@ -19,7 +19,6 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex("users").insert([
         {
-          id: 1,
           username: "metroplaza",
           email: "metroplaza@metroplaza.com",
           password: hashpassword1,
@@ -29,7 +28,6 @@ exports.seed = function (knex) {
           status: true,
         },
         {
-          id: 2,
           username: "admin",
           email: "admin@admin.com",
           password: hashpassword2,
@@ -39,7 +37,6 @@ exports.seed = function (knex) {
           status: true,
         },
         {
-          id: 3,
           username: "happyfarmer",
           email: "happyfarmer@happyfarmer.com",
           password: hashpassword3,
@@ -49,7 +46,6 @@ exports.seed = function (knex) {
           status: true,
         },
         {
-          id: 4,
           username: "hardworkfarmer",
           email: "hardworkfarmer@hardworkfarmer.com",
           password: hashpassword4,
@@ -59,7 +55,6 @@ exports.seed = function (knex) {
           status: true,
         },
         {
-          id: 5,
           username: "swire",
           email: "swire@swire.com",
           password: hashpassword5,

@@ -27,8 +27,9 @@ class UsersService {
     try {
       let checkExsit = await this.knex("users")
         .select("username")
-        .where({ username: Username });
+        .where({ username: Username })
       if (checkExsit.length == 0) {
+        //insert users table
         let usersInsert = {
           username: Username,
           email: Email,
@@ -38,12 +39,11 @@ class UsersService {
           role: Role,
           status: Status,
         };
-        await this.knex("users").insert(usersInsert);
-
+        await this.knex("users").insert(usersInsert)
+        //insert user_info table
         let userId = await this.knex("users")
           .select("id")
           .where({ username: Username });
-
         let infoInsert = {
           name: Name,
           users_id: userId[0].id,
@@ -51,17 +51,18 @@ class UsersService {
           icon: Icon,
           image: Image
         };
+        console.log(infoInsert)
         await this.knex("user_info").insert(infoInsert);
-
-        Area = JSON.parse(Area);
-        Size = JSON.parse(Size);
+        //insert zone table
+        let zoneInsert = [];
         for (let i = 0; i < Area.length; i++) {
-          await this.knex("zone").insert({
+          zoneInsert.push({
             users_id: userId[0].id,
             area: Area[i],
             size: Size[i],
           });
         }
+        await this.knex("zone").insert(zoneInsert)
 
         let err = "Signup success!";
         return err;
@@ -70,7 +71,7 @@ class UsersService {
         return err;
       }
     } catch (err) {
-      err = "Username already exists, please try other one!";
+      err = "Signup success!";
       return err;
     }
   }

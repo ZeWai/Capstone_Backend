@@ -8,7 +8,6 @@ exports.seed = function (knex) {
       let zoneInsert = [];
       for (let i = 0; i < area.length; i++) {
         zoneInsert.push({
-          id: i + 1,
           users_id: 1,
           area: area[i],
           size: size[i],

@@ -33,8 +33,8 @@ class UsersRouter {
         req.body.address,
         req.body.icon,
         req.body.image,
-        req.body.area,
-        req.body.size
+        req.body.zone[0],
+        req.body.zone[1]
       )
       .then((data) => res.json(data));
   }
