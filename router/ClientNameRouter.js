@@ -1,14 +1,15 @@
 const express = require("express");
 
 class ClientNameRouter {
-    constructor(clientNameService) {
+    constructor(clientNameService, auth) {
         this.clientNameService = clientNameService;
+        this.auth = auth;
     }
 
     router() {
         let router = express.Router();
         // Get all crops details by user
-        router.get("/:id", this.getclientname.bind(this));
+        router.get("/:id", this.auth.authenticate(), this.getclientname.bind(this));
         return router;
     }
 

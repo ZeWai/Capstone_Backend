@@ -30,9 +30,9 @@ const clientNameService = new ClientNameService(knex);
 
 //set up router file
 app.use("/api", new UsersRouter(usersService, auth).router());
-app.use("/api/crops/", new CropRouter(cropService).router());
-app.use("/api/farmlog/", new FarmlogRouter(farmlogService).router());
-app.use("/api/clientname/", new ClientNameRouter(clientNameService).router());
+app.use("/api/crops/", new CropRouter(cropService, auth).router());
+app.use("/api/farmlog/", new FarmlogRouter(farmlogService, auth).router());
+app.use("/api/clientname/", new ClientNameRouter(clientNameService, auth).router());
 
 const DashboardRouter = require("./router/Dashboardrouter.js");
 const DashboardService = require("./service/DashboardService.js");
@@ -43,5 +43,5 @@ const dashboardService = new DashboardService(knex);
 app.use("/api/dashboard", new DashboardRouter(dashboardService, auth, express).router());
 
 app.listen(port, ip, () => {
-  console.log(`Application listening to port ${port}`);
+    console.log(`Application listening to port ${port}`);
 });
