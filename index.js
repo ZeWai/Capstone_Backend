@@ -17,22 +17,26 @@ const UsersRouter = require("./router/UsersRouter");
 const CropRouter = require("./router/CropRouter");
 const FarmlogRouter = require("./router/FarmlogRouter");
 const ClientNameRouter = require("./router/ClientNameRouter")
+const ZoneRouter = require("./router/ZoneRouter")
 
 const UsersService = require("./service/UsersService");
 const CropService = require("./service/CropService");
 const FarmlogService = require("./service/FarmlogService");
 const ClientNameService = require("./service/ClientNameService")
+const ZoneService = require("./service/ZoneService")
 
 const usersService = new UsersService(knex);
 const cropService = new CropService(knex);
 const farmlogService = new FarmlogService(knex);
 const clientNameService = new ClientNameService(knex);
+const zoneService = new ZoneService(knex);
 
 //set up router file
 app.use("/api", new UsersRouter(usersService, auth).router());
 app.use("/api/crops/", new CropRouter(cropService, auth).router());
 app.use("/api/farmlog/", new FarmlogRouter(farmlogService, auth).router());
 app.use("/api/clientname/", new ClientNameRouter(clientNameService, auth).router());
+app.use("/api/getzone", new ZoneRouter(zoneService, auth).router());
 
 const DashboardRouter = require("./router/Dashboardrouter.js");
 const DashboardService = require("./service/DashboardService.js");
