@@ -20,8 +20,8 @@ class DashboardRouter {
     }
 getclient(req, res) {
     console.log("at dash router22222222")
-return this.usersService
-    .count0(req.user[0].id)
+return this.dashboardService
+    .client(req.user[0].id)
     .then((data) => res.json(data));
 }
 

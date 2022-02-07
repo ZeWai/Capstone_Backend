@@ -2,7 +2,7 @@ class DashboardService {
     constructor(knex){
         this.knex = knex;
     }
-    async count0(userId) {
+    async client(userId) {
         let user = await this.knex("user_info")
           .select("*")
           .where({ users_id: userId });
@@ -84,7 +84,7 @@ class DashboardService {
     async count5(id){
         console.log("at dashprogressservice", id)
         return await this.knex("crop")
-        .select("id", "name","type","contribution") 
+        .select("id", "name","type","contribution")
         .where("zone_id", id)
         .andWhere("harvest", false)
         .then((info)=> {
