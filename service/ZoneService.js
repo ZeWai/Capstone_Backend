@@ -4,8 +4,6 @@ class ZoneService {
     }
 
     async getZone(location) {
-        console.log('bye')
-        console.log(location)
         let zone = await this.knex
             .select("area")
             .from("zone")
