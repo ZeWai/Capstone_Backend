@@ -3,18 +3,40 @@ exports.seed = function (knex) {
   return knex("zone")
     .del()
     .then(function () {
-      let area = ["A", "B", "C", "D"];
-      let size = [100, 150, 300, 550];
-      let zoneInsert = [];
-      for (let i = 0; i < area.length; i++) {
-        zoneInsert.push({
+      return knex("zone").insert([{
+        users_id: 1,
+        area: "A",
+        size:100
+      }, {
           users_id: 1,
-          area: area[i],
-          size: size[i],
-        });
-      }
-
-      // Inserts seed entries
-      return knex("zone").insert(zoneInsert);
+          area: "B",
+          size: 150
+        },
+        {
+          users_id: 1,
+          area: "C",
+          size: 300
+        },
+        {
+          users_id: 1,
+          area: "D",
+          size: 550
+        },
+        {
+          users_id: 5,
+          area: "A",
+          size: 450
+        },
+        {
+          users_id: 5,
+          area: "B",
+          size: 50
+        },
+        {
+          users_id: 5,
+          area: "C",
+          size: 200
+        }
+      ]);
     });
 };

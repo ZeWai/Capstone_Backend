@@ -1,4 +1,10 @@
 const express = require("express");
+const fs = require('fs');
+const multer = require('multer');
+//fetch upload
+const upload = multer({ dest: 'uploads/' });
+//create random uuid
+const uuid = require('uuid').v4;
 
 class UsersRouter {
   constructor(usersService, auth) {
@@ -9,7 +15,13 @@ class UsersRouter {
     let router = express.Router();
 
     //signup user
-    router.post("/signup", this.signup.bind(this));
+    router.post("/signup",
+      //extract required uploaded file
+      upload.fields([
+        { name: 'icon', maxCount: 1 },
+        { name: 'image', maxCount: 1 },
+      ]),
+      this.signup.bind(this));
     //login
     router.post("/login", this.login.bind(this));
     //get user info
@@ -20,6 +32,22 @@ class UsersRouter {
   }
 
   signup(req, res) {
+    for (let i in req.files) {
+      //get image format form file name substring after "."
+      let getImageFormat = req.files[i][0].originalname.substring(req.files[i][0].originalname.indexOf('.'));
+      //create new uuid merge with image format
+      let newFileName = `${uuid()}${getImageFormat}`;
+      //add root path with new file name. eg : uploads\{newFileName}
+      let imagePath = req.files[i][0].path;
+      //add imageFormat into new name. eg. uploads\{newFileName}.jpg
+      let addImageFormat = req.files[i][0].destination + newFileName;
+      //file rename from uploads\{newFileName} to uploads\{newFileName}.jpg
+      fs.renameSync(imagePath, addImageFormat);
+      req.body[i] = `${addImageFormat}`;
+    }
+    //string to array
+    const areaList = req.body.area.split(",");
+    const sizeList = req.body.size.split(",");
     return this.usersService
       .signup(
         req.body.username,
@@ -33,8 +61,8 @@ class UsersRouter {
         req.body.address,
         req.body.icon,
         req.body.image,
-        req.body.zone[0],
-        req.body.zone[1]
+        areaList,
+        sizeList
       )
       .then((data) => res.json(data));
   }
