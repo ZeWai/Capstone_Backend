@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable("zone_crop", (table) => {
-    table.increments("id").unique();
+    table.increments("id").primary();
     table.integer("crop_id").unsigned();
     table.foreign("crop_id").references("crop.id");
     table.integer("zone_id").unsigned();
