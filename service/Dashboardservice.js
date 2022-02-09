@@ -10,6 +10,7 @@ class DashboardService {
           let err = "User does not exist!";
           return err;
         } else {
+          console.log(user)
           return user;
         }
       }
@@ -69,7 +70,8 @@ class DashboardService {
         return await this.knex("crop")
         .select("name","yield","contribution", "harvest_date") 
         .join("zone_crop","crop.id",'zone_crop.crop_id')
-        .where("crop.zone_id", id)
+        .join("zone", "crop.zone_id", "zone.id")
+        .where("zone.users_id", id)
         .andWhere("harvest", true)
         .then((info)=> {
             console.log("xxxx",info)
@@ -81,12 +83,14 @@ class DashboardService {
             }
         })
     }
+
     async count5(id){
         console.log("at dashprogressservice", id)
         return await this.knex("crop")
-        .select("id", "name","type","contribution")
-        .where("zone_id", id)
-        .andWhere("harvest", false)
+        .select("crop.id", "name","type","contribution")
+        .join("zone", "crop.zone_id", "zone.id")
+        .where("zone.users_id", id)
+        .andWhere("crop.harvest", false)
         .then((info)=> {
             console.log("yyyy",info)
             if(info.length>0){

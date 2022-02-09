@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable("irrigation", (table) => {
-    table.increments("id").unique();
+    table.increments("id").primary();
     table.integer("farm_log_id").unsigned().unique();
     table.foreign("farm_log_id").references("farm_log.id");
     table.boolean("s3q1");

@@ -83,7 +83,7 @@ getproductivity(req, res){
 }
 
 getprogress(req, res){
-    console.log("at dash router5")
+    console.log("at dash router5",req.user[0].id)
     return this.dashboardService
         .count5(req.user[0].id)
         .then((data) => {

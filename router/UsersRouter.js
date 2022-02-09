@@ -30,7 +30,6 @@ class UsersRouter {
 
     return router;
   }
-
   signup(req, res) {
     for (let i in req.files) {
       //get image format form file name substring after "."

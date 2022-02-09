@@ -110,7 +110,7 @@ exports.seed = function (knex) {
           sowing: true,
           irrigation: true,
           grooming: true,
-          harvest: false,
+          harvest: true,
         },
       ]);
     });
