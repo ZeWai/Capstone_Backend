@@ -7,7 +7,9 @@ const app = express();
 const port = 8080;
 const ip = "localhost";
 
+
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(auth.initialize());
