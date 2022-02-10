@@ -61,7 +61,7 @@ exports.seed = function (knex) {
         {
           id: 7,
           crop_id: 7,
-          zone_id: 1,
+          zone_id: 4,
           sowing_date: '2022-02-08',
           irrigation_date: '2022-02-10',
           grooming_date: '2022-03-10',

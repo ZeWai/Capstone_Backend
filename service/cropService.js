@@ -50,5 +50,36 @@ class CropService {
         }
       });
   }
+
+  async getReadyToHarvest(location) {
+    if (location !== "Loading") {
+      return await this.knex("crop")
+        .select("name", "area", "harvest_date", "type", "yield")
+        .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
+        .innerJoin("zone", "zone_crop.zone_id", "zone.id")
+        .innerJoin("users", "zone.users_id", "users.id")
+        .where("username", location)
+    }
+  }
+
+  async getZoneCrop(location, zone) {
+    if (zone === "Overview") {
+      return await this.knex("crop")
+        .select("name", "area", "harvest_date", "type", "yield")
+        .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
+        .innerJoin("zone", "zone_crop.zone_id", "zone.id")
+        .innerJoin("users", "zone.users_id", "users.id")
+        .where("username", location)
+    }
+    else {
+      return await this.knex("crop")
+        .select("name", "area", "harvest_date", "type", "yield","sowing_date")
+        .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
+        .innerJoin("zone", "zone_crop.zone_id", "zone.id")
+        .innerJoin("users", "zone.users_id", "users.id")
+        .where("username", location)
+        .where("area", zone)
+    }
+  }
 }
 module.exports = CropService;
