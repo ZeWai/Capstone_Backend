@@ -27,7 +27,7 @@ class UsersRouter {
     //get user info
     router.get("/users", this.auth.authenticate(), this.usersAll.bind(this));
     router.get("/users/:userId", this.auth.authenticate(), this.userInfo.bind(this));
-
+    router.post("/users/:userId/passwordchange", this.passwordchange.bind(this))
     return router;
   }
   signup(req, res) {
@@ -82,6 +82,11 @@ class UsersRouter {
       .then((data) => res.json(data));
   }
 
+  passwordchange(req, res) {
+    return this.usersService
+      .passwordchange(req.params.userId,req.body.oldpassword, req.body.newpassword)
+      .then((data)=>res.json(data))
+  }
 }
 
 module.exports = UsersRouter;

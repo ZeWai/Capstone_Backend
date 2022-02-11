@@ -122,6 +122,25 @@ class UsersService {
       return user;
     }
   }
+
+  async passwordchange(userId, oldpassword, newpassword) {
+    let Oldpassword = await this.knex
+      .select("*")
+      .from("users")
+      .where('id', userId)
+      .then((data) => data[0])
+    let hashedPassword = bcrypt.hashSync(newpassword, 10)
+    if (await bcrypt.compare(oldpassword, Oldpassword.password)) {
+        await this.knex
+        .update('password', hashedPassword)
+        .select("*")
+        .from("users")
+        .where('id', userId)
+        return "Password changed"
+    } else {
+      return "Old password wrong"
+    }
+  }
 }
 
 module.exports = UsersService;
