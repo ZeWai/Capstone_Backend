@@ -11,7 +11,6 @@ exports.seed = function (knex) {
           yield: "13kg",
           contribution: "event",
           sowing: true,
-          
           grooming: false,
           harvest: false,
         },
@@ -22,7 +21,6 @@ exports.seed = function (knex) {
           yield: "18kg",
           contribution: "event",
           sowing: true,
-          
           grooming: false,
           harvest: false,
         },
@@ -33,7 +31,6 @@ exports.seed = function (knex) {
           yield: "16kg",
           contribution: "event",
           sowing: true,
-          
           grooming: true,
           harvest: false,
         },
@@ -44,7 +41,6 @@ exports.seed = function (knex) {
           yield: "10kg",
           contribution: "event",
           sowing: true,
-          
           grooming: true,
           harvest: false,
         },
@@ -55,7 +51,6 @@ exports.seed = function (knex) {
           yield: "19kg",
           contribution: "event",
           sowing: true,
-          
           grooming: false,
           harvest: false,
         },
@@ -66,7 +61,6 @@ exports.seed = function (knex) {
           yield: "20kg",
           contribution: "event",
           sowing: true,
-          
           grooming: true,
           harvest: true,
         },
@@ -77,7 +71,6 @@ exports.seed = function (knex) {
           yield: "9kg",
           contribution: "event",
           sowing: true,
-          
           grooming: false,
           harvest: false,
         },
@@ -87,8 +80,7 @@ exports.seed = function (knex) {
           type: "Fruit",
           yield: "10kg",
           contribution: "event",
-          sowing: true,
-          
+          sowing: false,
           grooming: false,
           harvest: false,
         },
@@ -98,8 +90,7 @@ exports.seed = function (knex) {
           type: "Leafy Green",
           yield: "10kg",
           contribution: "event",
-          sowing: true,
-          
+          sowing: false,
           grooming: true,
           harvest: true,
         },
