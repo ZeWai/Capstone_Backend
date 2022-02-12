@@ -48,6 +48,8 @@ class CropService {
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
         .where("username", location)
+        .where("sowing", true)
+        .where("harvest", false)
     }
   }
 
@@ -59,15 +61,17 @@ class CropService {
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
         .where("username", location)
+        .where("harvest", false)
     }
     else {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "type", "yield","sowing_date")
+        .select("name", "area", "harvest_date", "type", "yield","sowing_date","sowing","harvest")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
         .where("username", location)
         .where("area", zone)
+        .where("harvest", false)
     }
   }
 }
