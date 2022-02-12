@@ -12,7 +12,6 @@ exports.up = function (knex) {
     table.boolean("s4q3");
     table.string("s4q3_remarks");
     table.string("s4q4");
-    table.timestamps(false, true);
   });
 };
 

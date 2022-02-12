@@ -6,7 +6,6 @@ exports.up = function (knex) {
     table.string("s5q1");
     table.decimal("s5q2");
     table.string("s5q3");
-    table.timestamps(false, true);
   });
 };
 

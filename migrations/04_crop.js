@@ -9,10 +9,8 @@ exports.up = function (knex) {
     table.string("contribution");
     table.binary("image");
     table.boolean("sowing");
-    table.boolean("irrigation");
     table.boolean("grooming");
     table.boolean("harvest");
-    table.timestamps(false, true);
   });
 };
 

@@ -11,7 +11,7 @@ exports.seed = function (knex) {
           yield: "13kg",
           contribution: "event",
           sowing: true,
-          irrigation: false,
+          
           grooming: false,
           harvest: false,
         },
@@ -22,7 +22,7 @@ exports.seed = function (knex) {
           yield: "18kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: false,
           harvest: false,
         },
@@ -33,7 +33,7 @@ exports.seed = function (knex) {
           yield: "16kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: true,
           harvest: false,
         },
@@ -44,7 +44,7 @@ exports.seed = function (knex) {
           yield: "10kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: true,
           harvest: false,
         },
@@ -55,7 +55,7 @@ exports.seed = function (knex) {
           yield: "19kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: false,
           harvest: false,
         },
@@ -66,7 +66,7 @@ exports.seed = function (knex) {
           yield: "20kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: true,
           harvest: true,
         },
@@ -77,7 +77,7 @@ exports.seed = function (knex) {
           yield: "9kg",
           contribution: "event",
           sowing: true,
-          irrigation: false,
+          
           grooming: false,
           harvest: false,
         },
@@ -88,7 +88,7 @@ exports.seed = function (knex) {
           yield: "10kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: false,
           harvest: false,
         },
@@ -99,7 +99,7 @@ exports.seed = function (knex) {
           yield: "10kg",
           contribution: "event",
           sowing: true,
-          irrigation: true,
+          
           grooming: true,
           harvest: true,
         },

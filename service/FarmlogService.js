@@ -126,10 +126,3 @@ class FarmlogService {
 }
 
 module.exports = FarmlogService;
-
-//For trying individual js files
-
-// const knexFile = require("../knexfile").development;
-// const knex = require("knex")(knexFile);
-// let farmlogService = new FarmlogService(knex);
-// farmlogService.list().then((a) => console.log(a));

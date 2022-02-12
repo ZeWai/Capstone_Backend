@@ -8,7 +8,6 @@ exports.up = function (knex) {
     table.integer("tel");
     table.string("role");
     table.boolean("status");
-    table.timestamps(false, true);
   });
 };
 

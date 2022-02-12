@@ -19,7 +19,6 @@ class DashboardRouter {
         return router;
     }
 getclient(req, res) {
-    console.log("at dash router22222222")
 return this.dashboardService
     .client(req.user[0].id)
     .then((data) => res.json(data));
@@ -27,11 +26,9 @@ return this.dashboardService
 
 
 getharvest(req, res){
-    console.log("at dash router")
     return this.dashboardService
       .count(req.user[0].id)
       .then((data) => {
-          console.log("atdashroutethen", data)
         res.json(data);
       })
       .catch((err) => {
@@ -42,11 +39,9 @@ getharvest(req, res){
 
 
 getgrowing(req, res){
-    console.log("at dash router")
     return this.dashboardService
       .count2(req.user[0].id)
       .then((data) => {
-          console.log("atdashroutethen2", data)
         res.json(data);
       })
       .catch((err) => {
@@ -55,11 +50,9 @@ getgrowing(req, res){
       });
     }
 getsow(req, res){
-    console.log("at dash router")
     return this.dashboardService
         .count3(req.user[0].id)
         .then((data) => {
-            console.log("atdashroutethen3", data)
         res.json(data);
         })
         .catch((err) => {
@@ -69,11 +62,9 @@ getsow(req, res){
     }
 
 getproductivity(req, res){
-    console.log("at dash router4")
     return this.dashboardService
         .count4(req.user[0].id)
         .then((data) => {
-            console.log("atdashroutethen4", data)
         res.json(data);
         })
         .catch((err) => {
@@ -83,11 +74,9 @@ getproductivity(req, res){
 }
 
 getprogress(req, res){
-    console.log("at dash router5",req.user[0].id)
     return this.dashboardService
         .count5(req.user[0].id)
         .then((data) => {
-            console.log("atdashroutethen5", data)
         res.json(data);
         })
         .catch((err) => {
@@ -97,11 +86,9 @@ getprogress(req, res){
 }
 
 getprogressS(req, res){
-    console.log("at dash router6",req.params.id)
     return this.dashboardService
         .count6(req.params.id)
         .then((data) => {
-            console.log("atdashroutethen6", data)
         res.json(data);
         })
         .catch((err) => {

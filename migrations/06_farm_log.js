@@ -11,7 +11,6 @@ exports.up = function (knex) {
     table.date("date");
     table.string("weather");
     table.integer("temp");
-    table.timestamps(false, true);
   });
 };
 

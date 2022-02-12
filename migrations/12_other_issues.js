@@ -6,7 +6,6 @@ exports.up = function (knex) {
     table.string("s7q1");
     table.binary("s7q2_album");
     table.binary("s7q3_image");
-    table.timestamps(false, true);
   });
 };
 

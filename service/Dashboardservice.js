@@ -2,6 +2,7 @@ class DashboardService {
     constructor(knex){
         this.knex = knex;
     }
+
     async client(userId) {
         let user = await this.knex("user_info")
           .select("*")
@@ -10,21 +11,36 @@ class DashboardService {
           let err = "User does not exist!";
           return err;
         } else {
-          console.log(user)
           return user;
         }
       }
     
 
-    async count(id){
-        console.log("at dashservice",id)
+    async count(id) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = `${yyyy}-${mm}-${dd}`;
+        console.log(today, 'today')
+        await this.knex
+            .select("*")
+            .from("crop")
+            .innerJoin("zone_crop", "crop.id", "zone_crop.crop_id")
+            /* .where("users_id", id) */
+/*             .where("crop_sowing", true) */
+/*             .where("crop_harvest", false) */
+            .then((data) => console.log(data))
+        
         return await this.knex("crop")
+            .innerJoin("zone_crop","crop.id","zone_crop.crop_id")
         .select("name")
         .where("zone_id", id)
         .andWhere("sowing", true)
-        .andWhere("irrigation", true)
+            .andWhere("harvest", false)
+            .andWhere("zone_crop.harvest_date",today)
         .then((info)=> {
-            console.log(info.length)
             if(info.length>0){
                 return info.length;
             } else {
@@ -34,13 +50,12 @@ class DashboardService {
     }
 
     async count2(id){
-        console.log("at dashservice",id)
         return await this.knex("crop")
         .select("name")
         .where("zone_id", id)
-        .andWhere("sowing", true)
+            .andWhere("sowing", true)
+            .andWhere("harvest", false)
         .then((info)=> {
-            console.log(info.length)
             if(info.length>0){
                 return info.length;
             } else {
@@ -50,13 +65,11 @@ class DashboardService {
     }
 
     async count3(id){
-        console.log("at dashsowservice",id)
         return await this.knex("crop")
         .select("name")
         .where("zone_id", id)
         .andWhere("sowing", false)
         .then((info)=> {
-            console.log(info.length)
             if(info.length>0){
                 return info.length;
             } else {
@@ -66,7 +79,6 @@ class DashboardService {
     }
 
     async count4(id){
-        console.log("at dashproductservice",id)
         return await this.knex("crop")
         .select("name","yield","contribution", "harvest_date") 
         .join("zone_crop","crop.id",'zone_crop.crop_id')
@@ -74,46 +86,38 @@ class DashboardService {
         .where("zone.users_id", id)
         .andWhere("harvest", true)
         .then((info)=> {
-            console.log("xxxx",info)
             if(info.length>0){
                 return info;
             } else {
-                console.log("not work")
                 return 0;
             }
         })
     }
 
     async count5(id){
-        console.log("at dashprogressservice", id)
         return await this.knex("crop")
         .select("crop.id", "name","type","contribution")
         .join("zone", "crop.zone_id", "zone.id")
         .where("zone.users_id", id)
         .andWhere("crop.harvest", false)
         .then((info)=> {
-            console.log("yyyy",info)
             if(info.length>0){
                 return info;
             } else {
-                console.log("not work")
                 return 0;
             }
         })
     }
 
     async count6(id){
-        console.log("at dashprogressSservice", id)
         return await this.knex("crop")
         .select("crop.id", "name","type","contribution","sowing_date") 
         .join("zone_crop","crop.id", 'zone_crop.crop_id')
         .where("crop.id", id)
         .then((info)=> {
-            console.log("yyyy",info)
             if(info.length>0){
                 return info;
             } else {
-                console.log("not work")
                 return 0;
             }
         })

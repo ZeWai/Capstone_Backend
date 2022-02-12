@@ -12,17 +12,6 @@ class CropService {
     return crops;
   }
 
-  //   async getCrop(usersId, area) {
-  //     return await this.knex("zone")
-  //       .select("*")
-  //       .where("users_id", usersId)
-  //       .where("area", area)
-  //       .then((data) => {
-  //         console.log(data);
-  //         return this.knex("crop").select("*").where("zone_id", data[0].id);
-  //       });
-  //   }
-
   async addCrop(usersId, area, cropinfo) {
     return await this.knex("zone")
       .select("*")

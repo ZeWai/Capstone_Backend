@@ -12,7 +12,6 @@ exports.up = function (knex) {
     table.time("s3q2_time_end");
     table.integer("s3q2_frequency");
     table.decimal("s3q3");
-    table.timestamps(false, true);
   });
 };
 

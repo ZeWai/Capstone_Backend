@@ -5,11 +5,10 @@ exports.up = function (knex) {
     table.foreign("crop_id").references("crop.id");
     table.integer("zone_id").unsigned();
     table.foreign("zone_id").references("zone.id");
+    table.integer("irrigation_period"); //YYYY-MM-DD
     table.date("sowing_date"); //YYYY-MM-DD
-    table.date("irrigation_date"); //YYYY-MM-DD
     table.date("grooming_date"); //YYYY-MM-DD
     table.date("harvest_date"); //YYYY-MM-DD
-    table.timestamps(false, true);
   });
 };
 

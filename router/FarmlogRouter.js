@@ -46,7 +46,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
@@ -59,7 +58,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
@@ -71,7 +69,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
@@ -83,7 +80,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
@@ -95,7 +91,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
@@ -107,7 +102,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
@@ -119,7 +113,6 @@ class FarmlogRouter {
       })
       .catch((err) => {
         res.status(500);
-        console.log(err);
         return res.json(err);
       });
   }
