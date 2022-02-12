@@ -62,7 +62,7 @@ exports.seed = function (knex) {
           contribution: "event",
           sowing: true,
           grooming: true,
-          harvest: true,
+          harvest: false,
         },
         {
           zone_id: 1,
@@ -91,7 +91,7 @@ exports.seed = function (knex) {
           yield: "10kg",
           contribution: "event",
           sowing: false,
-          grooming: true,
+          grooming: false,
           harvest: true,
         },
       ]);
