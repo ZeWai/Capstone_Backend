@@ -5,7 +5,6 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('crop').insert([
         {
-          id: 1,
           zone_id: 1,
           name: "Chili",
           type: "Fruit",
@@ -17,7 +16,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 2,
           zone_id: 1,
           name: "Rosemary",
           type: "Herb",
@@ -29,7 +27,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 3,
           zone_id: 2,
           name: "Chrysanthemum",
           type: "Flower",
@@ -41,7 +38,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 4,
           zone_id: 2,
           name: "Carrot",
           type: "Root/Stem",
@@ -53,7 +49,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 5,
           zone_id: 1,
           name: "Spinach",
           type: "Leafy Green",
@@ -65,7 +60,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 6,
           zone_id: 1,
           name: "Cherry Tomato",
           type: "Fruit",
@@ -77,7 +71,6 @@ exports.seed = function (knex) {
           harvest: true,
         },
         {
-          id: 7,
           zone_id: 1,
           name: "Potato",
           type: "Root/Stem",
@@ -89,7 +82,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 8,
           zone_id: 3,
           name: "Fig",
           type: "Fruit",
@@ -101,7 +93,6 @@ exports.seed = function (knex) {
           harvest: false,
         },
         {
-          id: 9,
           zone_id: 3,
           name: "Indian Lettuce",
           type: "Leafy Green",

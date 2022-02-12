@@ -28,7 +28,7 @@ class PlannerService {
             harvest_date: Pinfo.IrriD,
           };
         await this.knex("zone_crop").insert(Zone_cropInsert)
-        if(typeof Cropid== "number"){ 
+        if(typeof Cropid[0].id== "number"){ 
             return ("Success to save farm planner!")
         } else {
             throw new Error("Fail to save farm planner");
