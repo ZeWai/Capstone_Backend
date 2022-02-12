@@ -15,6 +15,29 @@ class DashboardService {
         }
     }
 
+    // async getSoil(id){
+    //     return await this.knex("zone")
+    //         .select("size")
+    //         .where("users_id", id)
+    //         .then((info) => {
+    //             console.log(info)
+    //             console.log(info.length)
+    //             console.log(parseInt(info[1].size))
+    //             if (info.length > 0) {
+                    
+    //                 return info;
+    //             }
+    //         })   
+    // }
+    // Addsize(info){
+    //     let newSize = 0;
+    //     // for(let i=0; i<=info.length; i++){
+    //     // newSize = newSize + parseInt(info[i].size);
+    //     // console.log("getsoli", newSize);
+    //     // };
+    //     // console.log(newSize);
+    //     return info;
+    //   }
 
     async count(id) {
         var today = new Date();
@@ -36,7 +59,7 @@ class DashboardService {
                 if (info.length > 0) {
                     return info.length;
                 } else {
-                    throw new Error("not existing");
+                    return 0;
                 }
             })
     }
@@ -114,11 +137,13 @@ class DashboardService {
 
     async count6(id) {
         return await this.knex("crop")
-            .select("crop.id", "name", "type", "contribution", "sowing_date")
+            .select("crop.id", "name", "type", "contribution", "sowing_date", "area", "grooming","harvest_date")
             .join("zone_crop", "crop.id", 'zone_crop.crop_id')
+            .join("zone", "crop.zone_id", "zone.id")
             .where("crop.id", id)
             .then((info) => {
                 if (info.length > 0) {
+                   
                     return info;
                 } else {
                     return 0;

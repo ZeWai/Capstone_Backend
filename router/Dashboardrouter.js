@@ -13,6 +13,7 @@ class DashboardRouter {
         router.get("/harvest", this.auth.authenticate(),this.getharvest.bind(this));
         router.get("/growing",this.auth.authenticate(), this.getgrowing.bind(this));
         router.get("/sow", this.auth.authenticate(),this.getsow.bind(this));
+        // router.get("/size", this.auth.authenticate(),this.getsize.bind(this));
         router.get("/productivity", this.auth.authenticate(), this.getproductivity.bind(this));
         router.get("/progress", this.auth.authenticate(), this.getprogress.bind(this));
         router.get("/progressS/:id",this.getprogressS.bind(this));
@@ -25,6 +26,20 @@ return this.dashboardService
 }
 
 
+// getsize(req, res) {
+//   console.log("at get size")
+//     return this.dashboardService
+//     .getSoil(req.user[0].id)
+//     .then((data) => this.dashboardService.Addsize(data))
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.status(500);
+//       return res.json(err);
+//     });
+// }
+
 getharvest(req, res){
     return this.dashboardService
       .count(req.user[0].id)
@@ -32,7 +47,6 @@ getharvest(req, res){
         res.json(data);
       })
       .catch((err) => {
-        res.status(500);
         return res.json(err);
       });
     }

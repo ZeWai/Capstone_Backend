@@ -42,7 +42,7 @@ app.use("/api/crops/", new CropRouter(cropService, auth).router());
 app.use("/api/farmlog/", new FarmlogRouter(farmlogService, auth).router());
 app.use("/api/clientname/", new ClientNameRouter(clientNameService, auth).router());
 app.use("/api/getzone", new ZoneRouter(zoneService, auth).router());
-app.use("/api/planner", new PlannerRouter(plannerService, express).router());
+app.use("/api/planner", new PlannerRouter(plannerService,auth, express).router());
 
 const DashboardRouter = require("./router/Dashboardrouter.js");
 const DashboardService = require("./service/DashboardService.js");
