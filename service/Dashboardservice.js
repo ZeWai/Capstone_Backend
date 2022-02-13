@@ -137,10 +137,27 @@ class DashboardService {
 
     async count6(id) {
         return await this.knex("crop")
-            .select("crop.id", "name", "type", "contribution", "sowing_date", "area", "grooming","harvest_date")
+            .select("crop.id", "name", "type", "contribution", "sowing_date", "area", "grooming","harvest_date"," image")
             .join("zone_crop", "crop.id", 'zone_crop.crop_id')
             .join("zone", "crop.zone_id", "zone.id")
             .where("crop.id", id)
+            .then((info) => {
+                if (info.length > 0) {
+                   
+                    return info;
+                } else {
+                    return 0;
+                }
+            })
+    }
+
+    async getscheduled(id){
+        return await this.knex("crop")
+        .select("crop.id", "name", "yield", "contribution", "sowing_date", "area","harvest_date")
+            .join("zone_crop", "crop.id", 'zone_crop.crop_id')
+            .join("zone", "crop.zone_id", "zone.id")
+            .where("zone.users_id", id)
+            .andWhere("sowing", false)
             .then((info) => {
                 if (info.length > 0) {
                    

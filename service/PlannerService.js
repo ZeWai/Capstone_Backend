@@ -33,7 +33,7 @@ class PlannerService {
             sowing_date: Pinfo.SowD,
             irrigation_period: parseInt(Pinfo.IrriD),
             grooming_date: Pinfo.SowD,
-            harvest_date: Pinfo.SowD,
+            harvest_date: Pinfo.HarD,
           };
         await this.knex("zone_crop").insert(Zone_cropInsert)
         if(typeof Cropid[0].id== "number"){ 
