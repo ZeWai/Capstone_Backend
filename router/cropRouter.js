@@ -14,6 +14,7 @@ class CropRouter {
     router.post("/:userid", this.auth.authenticate(), this.addCrop.bind(this));
     router.get("/readytoharvest/:location", this.auth.authenticate(), this.getReadyToHarvest.bind(this))
     router.get("/readytoharvest/:location/:zone", this.auth.authenticate(), this.getZoneCrop.bind(this))
+    router.get("/:location/:zone/todolist", this.auth.authenticate(), this.getTodoOverview.bind(this))
     return router;
   }
 
@@ -74,6 +75,15 @@ class CropRouter {
       })
   }
 
+  getTodoOverview(req, res) {
+    return this.cropService
+      .getTodoOverview(req.params.location, req.params.zone)
+      .then((data) => { res.json(data) })
+      .catch((err) => {
+        res.status(500);
+        return res.json(err)
+      })
+  }
 }
 
 module.exports = CropRouter;
