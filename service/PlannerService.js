@@ -2,9 +2,18 @@ class PlannerService {
     constructor(knex){
         this.knex = knex;
     }
+
+    async getZoneinFP(id) {
+        let zone = await this.knex
+            .select("area")
+            .from("zone")
+            .where("users_id", id)
+
+        return zone;
+    }
     async postPlanner(id,Pinfo){
         console.log("i am at planner service",Pinfo)
-        let Zoneid = await this.knex("zone").select("id").where("users_id", id).andWhere("area",Pinfo.zone);
+        let Zoneid = await this.knex("zone").select("id").where("users_id", id).andWhere("area", Pinfo.zone);
         console.log("zone is", Zoneid[0].id, Pinfo.cropN)
         let CropInsert = {
             zone_id: Zoneid[0].id,
@@ -13,7 +22,6 @@ class PlannerService {
             yield: Pinfo.yield,
             contribution: Pinfo.Contri,
             sowing: false,
-            irrigation: false,
             grooming: false,
             harvest: false,
           };
@@ -23,9 +31,9 @@ class PlannerService {
             crop_id: Cropid[0].id,
             zone_id: Zoneid[0].id,
             sowing_date: Pinfo.SowD,
-            irrigation_date: Pinfo.IrriD,
-            grooming_date: Pinfo.IrriD,
-            harvest_date: Pinfo.IrriD,
+            irrigation_period: parseInt(Pinfo.IrriD),
+            grooming_date: Pinfo.SowD,
+            harvest_date: Pinfo.SowD,
           };
         await this.knex("zone_crop").insert(Zone_cropInsert)
         if(typeof Cropid[0].id== "number"){ 

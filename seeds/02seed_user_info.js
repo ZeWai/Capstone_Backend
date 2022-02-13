@@ -10,8 +10,8 @@ exports.seed = function (knex) {
           name: "Metroplaza",
           address:
             "Level 5 Sky Garden, Metroplaza, 223 Hing Fong Road, Kwai Chung",
-          icon: null,
-          image: null
+          icon: "uploads/logo.png",
+          image: "uploads/metro.png",
         },
         {
           users_id: 2,
