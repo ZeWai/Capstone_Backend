@@ -213,30 +213,59 @@ class UsersService {
   //get client list
   async clientList() {
     let clientList = [];
-    let farmerList = [];
     let client = await this.knex.from("users")
-      .select("id", "username", "status", "farmer_id")
+      .select("id", "username", "status")
       .where({ role: "client", status: true })
-      .innerJoin("farmer_info", "users.id", "farmer_info.client_id")
+    const farmer = (async (id) => {
+      let farmerList = [];
+      return await this.knex("farmer_info")
+        .select("farmer_id")
+        .where({ client_id: id }).then((data) => {
+          for (let j = 0; j < data.length; j++) {
+            farmerList.push(data[j].farmer_id)
+          }
+          return farmerList;
+        })
+    })
+    for (let i = 0; i < client.length; i++) {
+      clientList.push({
+        id: client[i].id,
+        username: client[i].username,
+        status: client[i].status,
+        farmer: await farmer(client[i].id),
+        checked: false
+      })
+    }
+    return clientList;
+  }
 
-
-    //let farmer = await this.knex("farmer_info")
-    //  .select("farmer_id")
-    //  .where({ client_id: client[0].id })
-    //for (let i = 0; i < farmer.length; i++) {
-    //  farmerList.push(farmer[i].farmer_id)
-    //}
-    //
-    //for (let i = 0; i < client.length; i++) {
-    //  clientList.push({
-    //    id: client[i].id,
-    //    username: client[i].username,
-    //    farmer: farmerList,
-    //    status: client[i].status,
-    //    checked: false
-    //  })
-    //}
-    return client;
+  //get farmer list
+  async farmerList() {
+    let farmerList = [];
+    let farmer = await this.knex.from("users")
+      .select("id", "username", "status")
+      .where({ role: "farmer", status: true })
+    const client = (async (id) => {
+      let clientList = [];
+      return await this.knex("farmer_info")
+        .select("client_id")
+        .where({ farmer_id: id }).then((data) => {
+          for (let j = 0; j < data.length; j++) {
+            clientList.push(data[j].client_id)
+          }
+          return clientList;
+        })
+    })
+    for (let i = 0; i < farmer.length; i++) {
+      farmerList.push({
+        id: farmer[i].id,
+        username: farmer[i].username,
+        status: farmer[i].status,
+        client: await client(farmer[i].id),
+        checked: false
+      })
+    }
+    return farmerList;
   }
 }
 

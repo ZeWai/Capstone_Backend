@@ -34,7 +34,8 @@ class UsersRouter {
     router.get("/users", this.auth.authenticate(), this.usersAll.bind(this));
     router.get("/users/:userId", this.auth.authenticate(), this.userInfo.bind(this));
     router.post("/users/:userId/passwordchange", this.passwordchange.bind(this))
-    router.get("/clientList", this.clientList.bind(this));
+    router.get("/clientList", this.auth.authenticate(), this.clientList.bind(this));
+    router.get("/farmerList", this.auth.authenticate(), this.farmerList.bind(this));
     return router;
   }
 
@@ -132,6 +133,9 @@ class UsersRouter {
   }
   clientList(req, res) {
     return this.usersService.clientList().then((data) => res.json(data));
+  }
+  farmerList(req, res) {
+    return this.usersService.farmerList().then((data) => res.json(data));
   }
 
 }
