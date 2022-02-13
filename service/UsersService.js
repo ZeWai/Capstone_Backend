@@ -213,16 +213,30 @@ class UsersService {
   //get client list
   async clientList() {
     let clientList = [];
-    let client = await this.knex("users")
-      .select("username")
-      .where({ role: "client" })
-    for (let i = 0; i < client.length; i++) {
-      clientList.push({
-        username: client[i].username,
-        checked: false
-      })
-    }
-    return clientList;
+    let farmerList = [];
+    let client = await this.knex.from("users")
+      .select("id", "username", "status", "farmer_id")
+      .where({ role: "client", status: true })
+      .innerJoin("farmer_info", "users.id", "farmer_info.client_id")
+
+
+    //let farmer = await this.knex("farmer_info")
+    //  .select("farmer_id")
+    //  .where({ client_id: client[0].id })
+    //for (let i = 0; i < farmer.length; i++) {
+    //  farmerList.push(farmer[i].farmer_id)
+    //}
+    //
+    //for (let i = 0; i < client.length; i++) {
+    //  clientList.push({
+    //    id: client[i].id,
+    //    username: client[i].username,
+    //    farmer: farmerList,
+    //    status: client[i].status,
+    //    checked: false
+    //  })
+    //}
+    return client;
   }
 }
 
