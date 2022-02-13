@@ -1,9 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("farmer_info", (table) => {
-    table.integer("farmer_id").unsigned();
-    table.foreign("farmer_id").references("users.id");
-    table.integer("client_id").unsigned();
-    table.foreign("client_id").references("users.id");
+    table.integer("farmer_id").references("users.id");
+    table.integer("client_id").references("users.id");
   });
 };
 
