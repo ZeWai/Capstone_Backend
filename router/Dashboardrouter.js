@@ -17,6 +17,7 @@ class DashboardRouter {
         router.get("/productivity", this.auth.authenticate(), this.getproductivity.bind(this));
         router.get("/progress", this.auth.authenticate(), this.getprogress.bind(this));
         router.get("/progressS/:id",this.getprogressS.bind(this));
+        router.get("/scheduled", this.auth.authenticate(), this.getscheduled.bind(this));
         return router;
     }
 getclient(req, res) {
@@ -102,6 +103,18 @@ getprogress(req, res){
 getprogressS(req, res){
     return this.dashboardService
         .count6(req.params.id)
+        .then((data) => {
+        res.json(data);
+        })
+        .catch((err) => {
+        res.status(500);
+        return res.json(err);
+        });
+}
+
+getscheduled(req, res){
+    return this.dashboardService
+        .getscheduled(req.user[0].id)
         .then((data) => {
         res.json(data);
         })

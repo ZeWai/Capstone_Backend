@@ -7,7 +7,7 @@ exports.up = function (knex) {
     table.string("type");
     table.string("yield");
     table.string("contribution");
-    table.binary("image");
+    table.string("image");
     table.boolean("sowing");
     table.boolean("grooming");
     table.boolean("harvest");
