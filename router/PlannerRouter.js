@@ -9,11 +9,22 @@ class PlannerRouter {
         let router = this.express.Router();
         router.post("/:userid", this.postplanner.bind(this));
         router.get("/getzone", this.auth.authenticate(),this.getzone.bind(this));
+        router.get("/getcropstore",this.getcropstore.bind(this));
+        router.get("/getcropinfo/:crop",this.getcropinfo.bind(this));
         return router;
     }
 
+    getcropstore(req, res) {
+        return this.plannerService.getCropstore()
+        .then((data) => res.json(data));
+    }
+
+    getcropinfo(req, res) {
+        return this.plannerService.getCropinfo(req.params.crop)
+        .then((data) => res.json(data));
+    }
+
     postplanner(req, res) {
-        console.log("at postroute", req.body)
         return this.plannerService.postPlanner(req.params.userid,req.body.PlannerForm)
         .then((data) => res.json(data));
     }

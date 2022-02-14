@@ -11,6 +11,24 @@ class PlannerService {
 
         return zone;
     }
+
+    async getCropstore(){
+        let crop = await this.knex
+            .select("*")
+            .from("crop_store")
+        console.log(crop)
+        return crop;
+    }
+
+    async getCropinfo(crop){
+        let cropinfo = await this.knex
+            .select("*")
+            .from("crop_store")
+            .where("name", crop)
+        console.log(cropinfo)
+        return cropinfo;
+    }
+    
     async postPlanner(id,Pinfo){
         console.log("i am at planner service",Pinfo)
         let Zoneid = await this.knex("zone").select("id").where("users_id", id).andWhere("area", Pinfo.zone);
@@ -21,6 +39,7 @@ class PlannerService {
             type: Pinfo.cropT,
             yield: Pinfo.yield,
             contribution: Pinfo.Contri,
+            image:Pinfo.image,
             sowing: false,
             grooming: false,
             harvest: false,

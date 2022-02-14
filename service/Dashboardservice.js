@@ -15,29 +15,24 @@ class DashboardService {
         }
     }
 
-    // async getSoil(id){
-    //     return await this.knex("zone")
-    //         .select("size")
-    //         .where("users_id", id)
-    //         .then((info) => {
-    //             console.log(info)
-    //             console.log(info.length)
-    //             console.log(parseInt(info[1].size))
-    //             if (info.length > 0) {
+    async getSoil(id){
+        return await this.knex("zone")
+            .select("size")
+            .where("users_id", id)
+            .then((info) => {
+                if (info.length > 0) {
                     
-    //                 return info;
-    //             }
-    //         })   
-    // }
-    // Addsize(info){
-    //     let newSize = 0;
-    //     // for(let i=0; i<=info.length; i++){
-    //     // newSize = newSize + parseInt(info[i].size);
-    //     // console.log("getsoli", newSize);
-    //     // };
-    //     // console.log(newSize);
-    //     return info;
-    //   }
+                    return info;
+                }
+            })   
+    }
+    Addsize(info){
+        let newSize = 0;
+        for(let i=0; i<info.length; i++){
+        newSize = newSize + parseInt(info[i].size);
+        };
+        return newSize;
+      }
 
     async count(id) {
         var today = new Date();
@@ -54,7 +49,7 @@ class DashboardService {
             .where("zone.users_id", id)
             .andWhere("sowing", true)
             .andWhere("harvest", false)
-            .andWhere("zone_crop.harvest_date", today)
+            .andWhere("zone_crop.harvest_date","<=",today)
             .then((info) => {
                 if (info.length > 0) {
                     return info.length;
@@ -126,6 +121,7 @@ class DashboardService {
             .join("zone", "crop.zone_id", "zone.id")
             .where("zone.users_id", id)
             .andWhere("crop.harvest", false)
+            .andWhere("crop.sowing", true)
             .then((info) => {
                 if (info.length > 0) {
                     return info;
