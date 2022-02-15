@@ -13,8 +13,8 @@ class CropRouter {
     // Submit farm planner form
     router.post("/:userid", this.auth.authenticate(), this.addCrop.bind(this));
     router.get("/readytoharvest/:location", this.auth.authenticate(), this.getReadyToHarvest.bind(this))
-    router.get("/readytoharvest/:location/:zone", this.getZoneCrop.bind(this))
-    router.get("/todo/:location/:zone", this.getTodo.bind(this))
+    router.get("/readytoharvest/:location/:zone", this.auth.authenticate(), this.getZoneCrop.bind(this))
+    router.get("/todo/:location/:zone", this.auth.authenticate(), this.getTodo.bind(this))
     return router;
   }
 

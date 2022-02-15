@@ -51,6 +51,7 @@ class CropService {
         .where("username", location)
         .where("crop.sowing", true)
         .where("crop.harvest", false)
+        .orderBy("harvest_date", "asc")
     }
   }
 
@@ -75,6 +76,7 @@ class CropService {
         .where("area", zone)
         .where("sowing_date", "<=", today)
         .where("harvest", false)
+        .orderBy("harvest_date", "asc")
     }
   }
 
@@ -99,6 +101,7 @@ class CropService {
         .where("username", location)
         .where("sowing", false)
         .where("sowing_date", "<=", today)
+      
     } else {
       return await this.knex("crop")
         .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
