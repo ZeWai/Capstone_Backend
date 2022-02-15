@@ -78,7 +78,7 @@ class DashboardService {
                 if (info.length > 0) {
                     return info.length;
                 } else {
-                    throw new Error("not existing");
+                    return 0;
                 }
             })
     }
