@@ -4,8 +4,8 @@ class FarmlogService {
   }
 
   // list all the farmlog
-  list() {
-    return this.knex("farm_log")
+  async list() {
+    return await this.knex("farm_log")
       .select("*")
       .innerJoin("planting", "farm_log.id", "planting.farm_log_id")
       .innerJoin("irrigation", "farm_log.id", "irrigation.farm_log_id")
@@ -26,18 +26,45 @@ class FarmlogService {
       });
   }
 
-  submit_s1(farmerId, usersId, zoneId, input) {
-    return this.knex("farm_log").insert({
-      // ******
-      farmer_id: farmerId,
-      users_id: usersId,
-      zone_id: zoneId,
-      time: input.time,
-      date: input.date,
-      weather: input.weather,
-      temp: input.temp,
-    });
+  // select * from farm_log inner join users on farm_log.users_id = users.id inner join zone on farm_log.zone_id = zone.id;
+  async submit_s1(farmerId, input) {
+    console.log(`in submit s1`)
+    return await this.knex("users")
+      .innerJoin("zone", "users.id", "zone.users_id")
+      .select("*")
+      .where({ username: input.users, zone: input.zone})
+      .returning(["users.id","zone.id"])
+      .then((data) => {
+        console.log(`data.users.id`,data.users.id)
+        console.log(`data.zone.id`,data.zone.id)
+        if (data.length == 0) {
+          return this.knex("farm").insert({
+            farmer_id: farmerId,
+            users_id: data.users.id,
+            zone_id: data.zone.id,
+            time: input.time,
+            date: input.date,
+            weather: input.weather,
+            temp: input.temp,
+          });
+        } else {
+          throw new Error("Cant submit s1");
+        }
+      });
   }
+
+
+  //   return await this.knex("farm_log").insert({  submit_s1(farmerId, usersId, zoneId, input) {
+  //     // farmer_id: farmerId,
+  //     // users_id: usersId,
+  //     // zone_id: zoneId,
+  //     // time: input.time,
+  //     // date: input.date,
+  //     // weather: input.weather,
+  //     // temp: input.temp,
+  //   });
+  // }
+
   submit_s2(farmlogId, input) {
     return this.knex("planting").insert({
       farm_log_id: farmlogId,
