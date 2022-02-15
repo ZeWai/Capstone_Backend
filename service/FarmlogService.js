@@ -77,15 +77,12 @@ class FarmlogService {
     return this.knex("grooming").insert({
       farm_log_id: farmlogId,
       s4q1: input.s4q1,
-      s4q1_substanceType: input.s4q1_substanceType,
-      s4q1_cropType: input.s4q1_cropType,
+      s4q1_pest: input.s4q1_pest,
       s4q1_dosage: input.s4q1_dosage,
       s4q1_remarks: input.s4q1_remarks,
       s4q2: input.s4q2,
-      s4q2_cropType: input.s4q2_cropType,
       s4q2_remarks: input.s4q2_remarks,
       s4q3: input.s4q3,
-      s4q3_cropType: input.s4q3_cropType,
       s4q3_remarks: input.s4q3_remarks,
       s4q4: input.s4q4,
     });
@@ -119,8 +116,6 @@ class FarmlogService {
     return this.knex("other_issues").insert({
       farm_log_id: farmlogId,
       s7q1: input.s7q1,
-      s7q2_album: input.s7q2_album,
-      s7q3_image: input.s7q3_image,
     });
   }
 }

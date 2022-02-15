@@ -4,8 +4,6 @@ exports.up = function (knex) {
     table.integer("farm_log_id").unsigned().unique();
     table.foreign("farm_log_id").references("farm_log.id");
     table.string("s7q1");
-    table.binary("s7q2_album");
-    table.binary("s7q3_image");
   });
 };
 
