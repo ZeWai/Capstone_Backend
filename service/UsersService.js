@@ -267,6 +267,14 @@ class UsersService {
     }
     return farmerList;
   }
+
+  //delete account
+  async deleteAccount(id) {
+    await this.knex("users")
+      .update('status', false)
+      .where("id", id)
+    return "Delete account success!";
+  }
 }
 
 module.exports = UsersService;
