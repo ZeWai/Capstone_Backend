@@ -28,6 +28,7 @@ class UsersRouter {
         { name: 'icon', maxCount: 1 }
       ]),
       this.signupFarmer.bind(this));
+    router.post("/signupAdmin", this.signupAdmin.bind(this));
     //login
     router.post("/login", this.login.bind(this));
     //get user info
@@ -109,6 +110,24 @@ class UsersRouter {
         req.body.icon,
         req.body.image,
         accessList,
+      )
+      .then((data) => res.json(data));
+  }
+
+  signupAdmin(req, res) {
+    return this.usersService
+      .signupAdmin(
+        req.body.username,
+        req.body.email,
+        req.body.password,
+        req.body.postCode,
+        req.body.tel,
+        req.body.role,
+        req.body.status,
+        req.body.name,
+        req.body.address,
+        req.body.icon,
+        req.body.image
       )
       .then((data) => res.json(data));
   }
