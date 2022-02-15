@@ -85,14 +85,14 @@ class CropService {
     var yyyy = today.getFullYear();
     today = `${yyyy}-${mm}-${dd}T16:00:00.000Z`;
     const SowToday = await this.SowToday(location, zone, today)
-    const HarvestToday = await this.HarvestToday(location, zone, today)
-    return SowToday.concat(HarvestToday)
+    const WorkToday = await this.WorkToday(location, zone, today)
+    return SowToday.concat(WorkToday)
   }
 
   async SowToday(location, zone, today) {
     if (zone === "Overview") {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "type", "yield", "sowing_date", "sowing", "harvest")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
@@ -101,21 +101,21 @@ class CropService {
         .where("sowing_date", "<=", today)
     } else {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "type", "yield", "sowing_date", "sowing", "harvest")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
         .where("username", location)
         .where("area", zone)
-        .where("harvest", false)
+        .where("sowing", false)
+        .where("sowing_date", "<=", today)
     }
   }
 
-  async HarvestToday(location, zone, today) {
-
+  async WorkToday(location, zone, today) {
     if (zone === "Overview") {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "type", "yield", "sowing_date", "sowing", "harvest")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
@@ -125,18 +125,16 @@ class CropService {
         .where("harvest_date", "<=", today)
     } else {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "type", "yield", "sowing_date", "sowing", "harvest")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
         .where("username", location)
         .where("area", zone)
+        .where("sowing", true)
         .where("harvest", false)
         .where("harvest_date", "<=", today)
     }
   }
-
-
-
 }
 module.exports = CropService;
