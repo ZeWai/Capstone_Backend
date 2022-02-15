@@ -36,6 +36,7 @@ class UsersRouter {
     router.post("/users/:userId/passwordchange", this.passwordchange.bind(this))
     router.get("/clientList", this.auth.authenticate(), this.clientList.bind(this));
     router.get("/farmerList", this.auth.authenticate(), this.farmerList.bind(this));
+    router.put("/deleteAccount/:id", this.deleteAccount.bind(this));
     return router;
   }
 
@@ -136,6 +137,9 @@ class UsersRouter {
   }
   farmerList(req, res) {
     return this.usersService.farmerList().then((data) => res.json(data));
+  }
+  deleteAccount(req, res) {
+    return this.usersService.deleteAccount(req.params.id).then((data) => res.json(data));
   }
 
 }
