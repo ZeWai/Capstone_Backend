@@ -37,6 +37,8 @@ class UsersRouter {
     router.get("/clientList", this.auth.authenticate(), this.clientList.bind(this));
     router.get("/farmerList", this.auth.authenticate(), this.farmerList.bind(this));
     router.put("/deleteAccount/:id", this.deleteAccount.bind(this));
+    router.delete("/resetAssign", this.resetAssign.bind(this));
+    router.delete("/resetPlace", this.resetPlace.bind(this));
     return router;
   }
 
@@ -140,6 +142,12 @@ class UsersRouter {
   }
   deleteAccount(req, res) {
     return this.usersService.deleteAccount(req.params.id).then((data) => res.json(data));
+  }
+  resetAssign(req, res) {
+    return this.usersService.resetAssign(req.body.removeId, req.body.newAssign).then((data) => res.json(data));
+  }
+  resetPlace(req, res) {
+    return this.usersService.resetPlace(req.body.removeId, req.body.newAssign).then((data) => res.json(data));
   }
 
 }
