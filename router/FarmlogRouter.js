@@ -11,13 +11,13 @@ class FarmlogRouter {
   router() {
     let router = express.Router();
     router.get("/", this.auth.authenticate(), this.get.bind(this));
-    router.post("/s1", this.auth.authenticate(), this.post_s1.bind(this));
-    router.post("/s2", this.auth.authenticate(), this.post_s2.bind(this));
-    router.post("/s3", this.auth.authenticate(), this.post_s3.bind(this));
-    router.post("/s4", this.auth.authenticate(), this.post_s4.bind(this));
-    router.post("/s5", this.auth.authenticate(), this.post_s5.bind(this));
-    router.post("/s6", this.auth.authenticate(), this.post_s6.bind(this));
-    router.post("/s7", this.auth.authenticate(), this.post_s7.bind(this));
+    router.post("/:userid/s1", this.auth.authenticate(), this.post_s1.bind(this));
+    router.post("/:userid/s2", this.auth.authenticate(), this.post_s2.bind(this));
+    router.post("/:userid/s3", this.auth.authenticate(), this.post_s3.bind(this));
+    router.post("/:userid/s4", this.auth.authenticate(), this.post_s4.bind(this));
+    router.post("/:userid/s5", this.auth.authenticate(), this.post_s5.bind(this));
+    router.post("/:userid/s6", this.auth.authenticate(), this.post_s6.bind(this));
+    router.post("/:userid/s7", this.auth.authenticate(), this.post_s7.bind(this));
 
     return router;
   }
@@ -40,7 +40,7 @@ class FarmlogRouter {
   // ==================================
   post_s1(req, res) {
     return this.farmlogService
-      .submit_s1(req.body.form)
+      .submit_s1(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
@@ -52,7 +52,7 @@ class FarmlogRouter {
 
   post_s2(req, res) {
     return this.farmlogService
-      .submit_s2(req.body.form)
+      .submit_s2(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
@@ -63,7 +63,7 @@ class FarmlogRouter {
   }
   post_s3(req, res) {
     return this.farmlogService
-      .submit_s3(req.body.form)
+      .submit_s3(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
@@ -74,7 +74,7 @@ class FarmlogRouter {
   }
   post_s4(req, res) {
     return this.farmlogService
-      .submit_s4(req.body.form)
+      .submit_s4(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
@@ -85,7 +85,7 @@ class FarmlogRouter {
   }
   post_s5(req, res) {
     return this.farmlogService
-      .submit_s5(req.body.form)
+      .submit_s5(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
@@ -96,7 +96,7 @@ class FarmlogRouter {
   }
   post_s6(req, res) {
     return this.farmlogService
-      .submit_s6(req.body.form)
+      .submit_s6(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
@@ -107,7 +107,7 @@ class FarmlogRouter {
   }
   post_s7(req, res) {
     return this.farmlogService
-      .submit_s7(req.body.form)
+      .submit_s7(req.perams.userid,req.body.farmlogForm)
       .then((data) => {
         res.json(data);
       })
