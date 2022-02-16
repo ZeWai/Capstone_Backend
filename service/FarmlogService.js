@@ -27,43 +27,87 @@ class FarmlogService {
   }
 
   // select * from farm_log inner join users on farm_log.users_id = users.id inner join zone on farm_log.zone_id = zone.id;
+
   async submit_s1(farmerId, input) {
-    console.log(`in submit s1`)
-    return await this.knex("users")
-      .innerJoin("zone", "users.id", "zone.users_id")
-      .select("*")
-      .where({ username: input.users, zone: input.zone})
-      .returning(["users.id","zone.id"])
-      .then((data) => {
-        console.log(`data.users.id`,data.users.id)
-        console.log(`data.zone.id`,data.zone.id)
-        if (data.length == 0) {
-          return this.knex("farm").insert({
-            farmer_id: farmerId,
-            users_id: data.users.id,
-            zone_id: data.zone.id,
-            time: input.time,
-            date: input.date,
-            weather: input.weather,
-            temp: input.temp,
-          });
-        } else {
-          throw new Error("Cant submit s1");
-        }
-      });
+    let UsersZone = await this.knex("zone")
+    .innerJoin("users", "users.id", "zone.users_id")
+    .select("zone.users_id","zone.id", "users.username", "zone.area")
+    .where({ username: input.data[0].users })
+    .where({ area: input.data[0].zone })
+
+    let getfarmlogId = {
+      farmer_id: farmerId,
+      users_id: UsersZone[0].users_id,
+      zone_id: UsersZone[0].id,
+      time: input.data[0].time,
+      date: input.data[0].date,
+      weather: input.data[0].weather,
+      temp: input.data[0].temp,
+    }
+    let farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
+
+    let plantingSet = {
+            farm_log_id: farmlogId[0].id,
+            s2q1: input.data[1].s2q1,
+            s2q1_remarks: input.data[1].s2q1_remarks,
+            s2q2: input.data[1].s2q2,
+            s2q2_fertiliser: input.data[1].s2q2_fertiliser,
+            s2q2_remarks: input.data[1].s2q2_remarks,
+            s2q3: input.data[1].s2q3,
+            s2q3_remarks: input.data[1].s2q3_remarks,
+            s2q4: input.data[1].s2q4,
+            s2q4_remarks: input.data[1].s2q4_remarks,
+            s6q1: input.data[5].s6q1,
+            s6q1_remarks: input.data[5].s6q1_remarks,
+            s6q2: input.data[5].s6q2,
+            s6q3: input.data[5].s6q3,
+            s6q3_fertiliser: input.data[5].s6q3_fertiliser,
+            s6q3_quantity: input.data[5].s6q3_quantity,
+            s6q3_remarks: input.data[5].s6q3_remarks,
+            s6q4: input.data[5].s6q4,
+            s6q4_remarks: input.data[5].s6q4_remarks,
+            // s7q1:input.data[6].s7q1
+    }
+
+    console.log(`farmlogId`, farmlogId[0].id)
+    console.log( input.data[1].s2q1)
+    console.log(input.data[1].s2q1_remarks)
+    console.log(input.data[1].s2q2)
+    console.log(input.data[1].s2q2_fertiliser)
+    console.log( input.data[1].s2q2_remarks)
+    console.log( input.data[1].s2q3)
+    console.log(input.data[1].s2q3_remarks)
+    console.log(input.data[1].s2q4)
+    console.log( input.data[1].s2q4_remarks)
+    console.log(`s6`, input.data[5].s6q1)
+    console.log( input.data[5].s6q1_remarks)
+    console.log( input.data[5].s6q2)
+    console.log( input.data[5].s6q3)
+    console.log( input.data[5].s6q3_fertiliser)
+    console.log( input.data[5].s6q3_quantity)
+    console.log( input.data[5].s6q3_remarks)
+    console.log( input.data[5].s6q4)
+    console.log( input.data[5].s6q4_remarks)
+    console.log(input.data[6].s7q1)
+
+    // select * from planting 
+    // inner join garden_management on planting.farm_log_id = garden_management.farm_log_id 
+    // inner join other_issues on planting.farm_log_id = other_issues.farm_log_id;
+
+     return await this.knex("planting")
+        .innerJoin("garden_management","planting.farm_log_id","garden_management.farm_log_id")
+        // .innerJoin("other_issues","planting.farm_log_id", "other_issues.farm_log_id")
+        .insert(plantingSet)
+        // let msg = "farmlog submit success!";
+    // console.log(`plantingSetInsert`,plantingSetInsert);
   }
 
 
-  //   return await this.knex("farm_log").insert({  submit_s1(farmerId, usersId, zoneId, input) {
-  //     // farmer_id: farmerId,
-  //     // users_id: usersId,
-  //     // zone_id: zoneId,
-  //     // time: input.time,
-  //     // date: input.date,
-  //     // weather: input.weather,
-  //     // temp: input.temp,
-  //   });
-  // }
+
+
+
+
+
 
   submit_s2(farmlogId, input) {
     return this.knex("planting").insert({
