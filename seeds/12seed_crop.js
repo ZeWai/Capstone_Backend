@@ -103,6 +103,28 @@ exports.seed = function (knex) {
           grooming: true,
           harvest: true,
         },
+        {
+          zone_id: 3,
+          name: "Fig",
+          type: "Fruit",
+          yield: "15",
+          contribution: "Event",
+          image:"uploads/Card_Fig.jpeg",
+          sowing: true,
+          grooming: true,
+          harvest: true,
+        },
+        {
+          zone_id: 2,
+          name: "Spinach",
+          type: "Leafy Green",
+          yield: "20",
+          contribution: "Event",
+          image:"uploads/Card_Spinach.jpeg",
+          sowing: true,
+          grooming: true,
+          harvest: true,
+        },
       ]);
     });
 };

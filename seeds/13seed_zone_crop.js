@@ -74,7 +74,23 @@ exports.seed = function (knex) {
           sowing_date: '2021-11-08',
           irrigation_period: 3,
           grooming_date: '2022-11-09',
+          harvest_date: '2022-02-02',
+        },
+        {
+          crop_id: 10,
+          zone_id: 3,
+          sowing_date: '2021-11-14',
+          irrigation_period: 3,
+          grooming_date: '2022-11-15',
           harvest_date: '2022-02-10',
+        },
+        {
+          crop_id: 11,
+          zone_id: 2,
+          sowing_date: '2021-11-17',
+          irrigation_period: 2,
+          grooming_date: '2022-11-18',
+          harvest_date: '2022-02-13',
         },
       ]);
     });
