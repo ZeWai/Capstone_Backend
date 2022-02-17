@@ -100,6 +100,7 @@ class DashboardService {
     }
 
     async count4(id) {
+        console.log(id)
         return await this.knex("crop")
             .select("name", "yield", "contribution", "harvest_date")
             .join("zone_crop", "crop.id", 'zone_crop.crop_id')

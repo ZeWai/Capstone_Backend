@@ -79,6 +79,7 @@ getproductivity(req, res){
     return this.dashboardService
         .count4(req.user[0].id)
         .then((data) => {
+          console.log(`pp`,data)
         res.json(data);
         })
         .catch((err) => {
