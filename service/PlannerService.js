@@ -44,10 +44,10 @@ class PlannerService {
         let Zone_cropInsert = {
             crop_id: Cropid[0].id,
             zone_id: Zoneid[0].id,
-            sowing_date: `${Pinfo.SowD}T00:00:00.000Z`,
+            sowing_date: Pinfo.SowD,
             irrigation_period: parseInt(Pinfo.IrriD),
             grooming_date: Pinfo.SowD,
-            harvest_date: `${Pinfo.HarD}T00:00:00.000Z`,
+            harvest_date: Pinfo.HarD,
           };
         await this.knex("zone_crop").insert(Zone_cropInsert)
         if(typeof Cropid[0].id== "number"){ 

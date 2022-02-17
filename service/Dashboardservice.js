@@ -66,6 +66,7 @@ class DashboardService {
         var yyyy = today.getFullYear();
 
         today = `${yyyy}-${mm}-${dd}`;
+        
         return await this.knex("crop")
             .select("name","harvest_date")
             .join("zone_crop", "crop.id", 'zone_crop.crop_id')

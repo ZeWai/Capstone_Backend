@@ -87,6 +87,7 @@ class CropService {
     var yyyy = today.getFullYear();
     var today = `${yyyy}-${mm}-${dd}`;
     const SowToday = await this.SowToday(location, zone, today)
+    console.log(SowToday)
     const WorkToday = await this.WorkToday(location, zone, today)
     return SowToday.concat(WorkToday)
   }
