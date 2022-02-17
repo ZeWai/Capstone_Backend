@@ -51,6 +51,7 @@ class CropService {
         .where("username", location)
         .where("crop.sowing", true)
         .where("crop.harvest", false)
+        .orderBy("harvest_date", "asc")
     }
   }
 
@@ -75,15 +76,16 @@ class CropService {
         .where("area", zone)
         .where("sowing_date", "<=", today)
         .where("harvest", false)
+        .orderBy("harvest_date", "asc")
     }
   }
 
   async getTodo(location, zone) {
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
+    var dd = String(today.getDate() + 1).padStart(2, '0'); //To make sure get correct date
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}T16:00:00.000Z`;
+    var today = `${yyyy}-${mm}-${dd}T23:00:00.000Z`;
     const SowToday = await this.SowToday(location, zone, today)
     const WorkToday = await this.WorkToday(location, zone, today)
     return SowToday.concat(WorkToday)
@@ -99,6 +101,7 @@ class CropService {
         .where("username", location)
         .where("sowing", false)
         .where("sowing_date", "<=", today)
+      
     } else {
       return await this.knex("crop")
         .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
