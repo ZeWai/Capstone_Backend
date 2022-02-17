@@ -138,28 +138,130 @@ class FarmlogService {
     return `Irrigation Success`
   }
 
-  
+  // Submit Groomingn farmlog
+  async submitGrooming(farmerId, input) {
+    console.log(`submitGrooming`)
+    let UsersZone = await this.knex("zone")
+    .innerJoin("users", "users.id", "zone.users_id")
+    .select("zone.users_id","zone.id", "users.username", "zone.area")
+    .where({ username: input.data[0].users })
+    .where({ area: input.data[0].zone })
 
+    console.log(`UsersZone`, UsersZone)
 
-  postGrooming(farmlogId, input) {
-    return this.knex("irrigation").insert({
-      farm_log_id: farmlogId,
-      s3q1: input.s3q1,
-      s3q1_remarks: input.s3q1_remarks,
-      s3q2: input.s3q2,
-      s3q2_date_start: input.s3q2_date_start,
-      s3q2_date_end: input.s3q2_date_end,
-      s3q2_time_start: input.s3q2_time_start,
-      s3q2_time_end: input.s3q2_time_end,
-      s3q2_frequency: input.s3q2_frequency,
-      s3q3: input.s3q3,
-    });
+    let getfarmlogId = {
+      farmer_id: farmerId,
+      users_id: UsersZone[0].users_id,
+      zone_id: UsersZone[0].id,
+      time: input.data[0].time,
+      date: input.data[0].date,
+      weather: input.data[0].weather,
+      temp: input.data[0].temp,
+    }
+    console.log(`I_getfarmlogId`,getfarmlogId)
+    
+    let G_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
+
+    let groomingInfo = {
+      G_farm_log_id: G_farmlogId[0].id,
+      s4q1: input.data[3].s4q1,
+      s4q1_pest: input.data[3].s4q1_pest,
+      s4q1_dosage: input.data[3].s4q1_dosage,
+      s4q1_remarks: input.data[3].s4q1_remarks,
+      s4q2: input.data[3].s4q2,
+      s4q2_remarks: input.data[3].s4q2_remarks,
+      s4q3: input.data[3].s4q3,
+      s4q3_remarks: input.data[3].s4q3_remarks,
+      s4q4: input.data[3].s4q4,
+    }
+    console.log(`groomingInfo`, groomingInfo)
+
+    await this.knex("grooming").insert(groomingInfo)
+
+    let gardenManagementInfo = {
+      GA_farm_log_id: G_farmlogId[0].id,
+      s6q1: input.data[5].s6q1,
+      s6q1_remarks: input.data[5].s6q1_remarks,
+      s6q2: input.data[5].s6q2,
+      s6q3: input.data[5].s6q3,
+      s6q3_fertiliser: input.data[5].s6q3_fertiliser,
+      s6q3_quantity: input.data[5].s6q3_quantity,
+      s6q3_remarks: input.data[5].s6q3_remarks,
+      s6q4: input.data[5].s6q4,
+      s6q4_remarks: input.data[5].s6q4_remarks,
+    }
+    console.log(gardenManagementInfo)
+    await this.knex("garden_management").insert(gardenManagementInfo)
+
+    await this.knex("other_issues").insert({      
+      O_farm_log_id: G_farmlogId[0].id,
+     s7q1:input.data[6].s7q1})
+
+    return `Grooming Success`
   }
+
+
 
 //      .where("sowing", true)
 // harvest = false
 // harvest_date <= today + 1
 // time -> T23
+
+  // Submit Harvest farmlog
+  async submitHarvest(farmerId, input) {
+    console.log(`submitHarvest`)
+    let UsersZone = await this.knex("zone")
+    .innerJoin("users", "users.id", "zone.users_id")
+    .select("zone.users_id","zone.id", "users.username", "zone.area")
+    .where({ username: input.data[0].users })
+    .where({ area: input.data[0].zone })
+
+    console.log(`UsersZone`, UsersZone)
+
+    let getfarmlogId = {
+      farmer_id: farmerId,
+      users_id: UsersZone[0].users_id,
+      zone_id: UsersZone[0].id,
+      time: input.data[0].time,
+      date: input.data[0].date,
+      weather: input.data[0].weather,
+      temp: input.data[0].temp,
+    }
+    console.log(`getfarmlogId`,getfarmlogId)
+    
+    let H_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
+
+    let harvestInfo = {
+      H_farm_log_id: H_farmlogId[0].id,
+      s5q1: input.data[4].s5q1,
+      s5q2: input.data[4].s5q2,
+      s5q3: input.data[4].s5q3,
+    }
+    console.log(`harvestInfo`, harvestInfo)
+
+    await this.knex("grooming").insert(harvestInfo)
+
+    let gardenManagementInfo = {
+      GA_farm_log_id: G_farmlogId[0].id,
+      s6q1: input.data[5].s6q1,
+      s6q1_remarks: input.data[5].s6q1_remarks,
+      s6q2: input.data[5].s6q2,
+      s6q3: input.data[5].s6q3,
+      s6q3_fertiliser: input.data[5].s6q3_fertiliser,
+      s6q3_quantity: input.data[5].s6q3_quantity,
+      s6q3_remarks: input.data[5].s6q3_remarks,
+      s6q4: input.data[5].s6q4,
+      s6q4_remarks: input.data[5].s6q4_remarks,
+    }
+    console.log(gardenManagementInfo)
+    await this.knex("garden_management").insert(gardenManagementInfo)
+
+    await this.knex("other_issues").insert({      
+      O_farm_log_id: G_farmlogId[0].id,
+     s7q1:input.data[6].s7q1})
+
+    return `harvest Success`
+  }
 
   postHarvest(farmlogId, input) {
     return this.knex("harvest").insert({
