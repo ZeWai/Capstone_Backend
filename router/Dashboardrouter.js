@@ -115,6 +115,7 @@ getscheduled(req, res){
     return this.dashboardService
         .getscheduled(req.user[0].id)
         .then((data) => {
+          console.log(`router`,data)
         res.json(data);
         })
         .catch((err) => {

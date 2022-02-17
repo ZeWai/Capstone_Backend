@@ -6,9 +6,9 @@ exports.up = function (knex) {
     table.integer("zone_id").unsigned();
     table.foreign("zone_id").references("zone.id");
     table.integer("irrigation_period"); //YYYY-MM-DD
-    table.date("sowing_date"); //YYYY-MM-DD
-    table.date("grooming_date"); //YYYY-MM-DD
-    table.date("harvest_date"); //YYYY-MM-DD
+    table.string("sowing_date"); //YYYY-MM-DD
+    table.string("grooming_date"); //YYYY-MM-DD
+    table.string("harvest_date"); //YYYY-MM-DD
   });
 };
 
