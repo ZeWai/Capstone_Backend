@@ -74,7 +74,7 @@ class CropService {
         .innerJoin("users", "zone.users_id", "users.id")
         .where("username", location)
         .where("area", zone)
-        .where("sowing_date", "<=", today)
+        .where("sowing",true)
         .where("harvest", false)
         .orderBy("harvest_date", "asc")
     }
