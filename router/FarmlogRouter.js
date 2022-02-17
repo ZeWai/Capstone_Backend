@@ -40,7 +40,6 @@ class FarmlogRouter {
     return this.farmlogService
       .submitPlanting(req.params.userid, req.body)
       .then((data) => {
-        console.log(data)
         res.json(data);
       })
       .catch((err) => {
@@ -53,7 +52,6 @@ class FarmlogRouter {
     return this.farmlogService
       .submitIrrigation(req.params.userid, req.body)
       .then((data) => {
-        console.log(data)
         res.json(data);
       })
       .catch((err) => {
@@ -65,8 +63,6 @@ class FarmlogRouter {
     return this.farmlogService
       .submitGrooming(req.params.userid,req.body)
       .then((data) => {
-        console.log(data)
-
         res.json(data);
       })
       .catch((err) => {
@@ -78,7 +74,6 @@ class FarmlogRouter {
     return this.farmlogService
       .submitHarvest(req.params.userid,req.body)
       .then((data) => {
-        console.log(data)
         res.json(data);
       })
       .catch((err) => {

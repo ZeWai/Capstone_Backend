@@ -139,58 +139,5 @@ class CropService {
         .where("harvest_date", "<=", today)
     }
   }
-
-  // update Sowing status -> TRUE
-  async editCropSowing(usersId, area) {
-    return await this.knex("zone")
-      .select("*")
-      .where({ users_id: usersId, area: area })
-      .returning("id")
-      .then((data) => {
-        if (data.length == 0) {
-          return this.knex("crop").update({
-            sowing: true,
-          });
-        } else {
-          throw new Error("Cant edit Sowing status");
-        }
-      });
-  }
-
-
-    // update grooming status -> TRUE
-    async editCropGrooming(usersId, area) {
-      return await this.knex("zone")
-        .select("*")
-        .where({ users_id: usersId, area: area })
-        .returning("id")
-        .then((data) => {
-          if (data.length == 0) {
-            return this.knex("crop").update({
-              grooming: true,
-            });
-          } else {
-            throw new Error("Cant edit grooming status");
-          }
-        });
-    }
-  
-    // update harvest status -> TRUE
-    async editCropHarvest(usersId, area) {
-      return await this.knex("zone")
-        .select("*")
-        .where({ users_id: usersId, area: area })
-        .returning("id")
-        .then((data) => {
-          if (data.length == 0) {
-            return this.knex("crop").update({
-              harvest: true,
-            });
-          } else {
-            throw new Error("Cant edit harvest status");
-          }
-        });
-    }
-
 }
 module.exports = CropService;

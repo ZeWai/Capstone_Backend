@@ -243,7 +243,6 @@ class FarmlogService {
      .where("sowing", true)
      .where("harvest_date","<=", today);
      
-        
     if (cropid.length == 1){
     await this.knex("crop").update({
        harvest: true,

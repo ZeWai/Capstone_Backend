@@ -156,7 +156,6 @@ class DashboardService {
             .andWhere("sowing", false)
             .then((info) => {
                 if (info.length > 0) {
-                   console.log(`service`,info)
                     return info;
                 } else {
                     return 0;

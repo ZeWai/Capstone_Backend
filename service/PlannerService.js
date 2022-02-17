@@ -28,7 +28,6 @@ class PlannerService {
     }
     
     async postPlanner(id,Pinfo){
-        console.log(`Pinfo`,Pinfo)
         let Zoneid = await this.knex("zone").select("id").where("users_id", id).andWhere("area", Pinfo.zone);
         let CropInsert = {
             zone_id: Zoneid[0].id,
