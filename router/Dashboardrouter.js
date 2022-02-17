@@ -79,7 +79,6 @@ getproductivity(req, res){
     return this.dashboardService
         .count4(req.user[0].id)
         .then((data) => {
-          console.log(`pp`,data)
         res.json(data);
         })
         .catch((err) => {
@@ -116,7 +115,6 @@ getscheduled(req, res){
     return this.dashboardService
         .getscheduled(req.user[0].id)
         .then((data) => {
-          console.log(`router`,data)
         res.json(data);
         })
         .catch((err) => {
