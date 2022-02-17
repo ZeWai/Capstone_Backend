@@ -4,8 +4,8 @@ exports.up = function (knex) {
     table.string("username");
     table.string("email");
     table.string("password");
-    table.integer("postCode");
-    table.integer("tel");
+    table.string("postCode");
+    table.string("tel");
     table.string("role");
     table.boolean("status");
   });
