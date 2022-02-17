@@ -22,7 +22,11 @@ class FarmlogService {
     }
     let farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
 
-    console.log(`farmlog id`, farmlogId[0].id)
+    if (farmlogId === undefined) {
+      let err = "Incorrect input of Client and Zone";
+      return err;
+    } 
+
     let plantingInfo = {
       P_farm_log_id: farmlogId[0].id,
       s2q1: input.data[1].s2q1,
@@ -49,7 +53,6 @@ class FarmlogService {
       s6q4: input.data[5].s6q4,
       s6q4_remarks: input.data[5].s6q4_remarks,
     }
-    console.log(gardenManagementInfo)
     await this.knex("garden_management").insert(gardenManagementInfo)
 
     await this.knex("other_issues").insert({      
@@ -57,14 +60,11 @@ class FarmlogService {
      s7q1:input.data[6].s7q1})
 
 
-    //  select *  from crop inner join zone_crop on  zone_crop.crop_id = crop.id where crop.zone_id = 3 and sowing = 'f' order by sowing_date ASC;
     let cropid = await this.knex("crop")
     .innerJoin("zone_crop","zone_crop.crop_id","crop.id" )
     .where("crop.zone_id",  UsersZone[0].id)
     .where("sowing", false)
     .orderBy("sowing_date", "asc")
-    
-    console.log(`crop`,cropid)
     
     if (cropid.length > 0){
     await this.knex("crop").update({
@@ -76,16 +76,11 @@ class FarmlogService {
 
   // Submit Irrigation farmlog
   async submitIrrigation(farmerId, input) {
-    console.log(`submitIrrigation`)
-    console.log(`submitIrrigation`)
-
     let UsersZone = await this.knex("zone")
     .innerJoin("users", "users.id", "zone.users_id")
     .select("zone.users_id","zone.id", "users.username", "zone.area")
     .where({ username: input.data[0].users })
     .where({ area: input.data[0].zone })
-
-    console.log(`UsersZone`, UsersZone)
 
     let getfarmlogId = {
       farmer_id: farmerId,
@@ -96,7 +91,6 @@ class FarmlogService {
       weather: input.data[0].weather,
       temp: input.data[0].temp,
     }
-    console.log(`I_getfarmlogId`,getfarmlogId)
     
     let I_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
 
@@ -112,7 +106,6 @@ class FarmlogService {
       s3q2_frequency: input.data[2].s3q2_frequency,
       s3q3: input.data[2].s3q3,
     }
-    console.log(`irrigationInfo`, irrigationInfo)
 
     await this.knex("irrigation").insert(irrigationInfo)
 
@@ -128,7 +121,6 @@ class FarmlogService {
       s6q4: input.data[5].s6q4,
       s6q4_remarks: input.data[5].s6q4_remarks,
     }
-    console.log(gardenManagementInfo)
     await this.knex("garden_management").insert(gardenManagementInfo)
 
     await this.knex("other_issues").insert({      
@@ -140,14 +132,11 @@ class FarmlogService {
 
   // Submit Groomingn farmlog
   async submitGrooming(farmerId, input) {
-    console.log(`submitGrooming`)
     let UsersZone = await this.knex("zone")
     .innerJoin("users", "users.id", "zone.users_id")
     .select("zone.users_id","zone.id", "users.username", "zone.area")
     .where({ username: input.data[0].users })
     .where({ area: input.data[0].zone })
-
-    console.log(`UsersZone`, UsersZone)
 
     let getfarmlogId = {
       farmer_id: farmerId,
@@ -158,7 +147,6 @@ class FarmlogService {
       weather: input.data[0].weather,
       temp: input.data[0].temp,
     }
-    console.log(`I_getfarmlogId`,getfarmlogId)
     
     let G_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
 
@@ -174,7 +162,6 @@ class FarmlogService {
       s4q3_remarks: input.data[3].s4q3_remarks,
       s4q4: input.data[3].s4q4,
     }
-    console.log(`groomingInfo`, groomingInfo)
 
     await this.knex("grooming").insert(groomingInfo)
 
@@ -190,7 +177,6 @@ class FarmlogService {
       s6q4: input.data[5].s6q4,
       s6q4_remarks: input.data[5].s6q4_remarks,
     }
-    console.log(gardenManagementInfo)
     await this.knex("garden_management").insert(gardenManagementInfo)
 
     await this.knex("other_issues").insert({      
@@ -203,14 +189,11 @@ class FarmlogService {
 
   // Submit Harvest farmlog
   async submitHarvest(farmerId, input) {
-    console.log(`submitHarvest`)
     let UsersZone = await this.knex("zone")
     .innerJoin("users", "users.id", "zone.users_id")
     .select("zone.users_id","zone.id", "users.username", "zone.area")
     .where({ username: input.data[0].users })
     .where({ area: input.data[0].zone })
-
-    console.log(`UsersZone`, UsersZone)
 
     let getfarmlogId = {
       farmer_id: farmerId,
@@ -221,7 +204,6 @@ class FarmlogService {
       weather: input.data[0].weather,
       temp: input.data[0].temp,
     }
-    console.log(`getfarmlogId`,getfarmlogId)
     
     let H_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
 
@@ -231,9 +213,8 @@ class FarmlogService {
       s5q2: input.data[4].s5q2,
       s5q3: input.data[4].s5q3,
     }
-    console.log(`harvestInfo`, harvestInfo)
 
-    // await this.knex("harvest").insert(harvestInfo)
+    await this.knex("harvest").insert(harvestInfo)
 
     let gardenManagementInfo = {
       GA_farm_log_id: H_farmlogId[0].id,
@@ -247,7 +228,6 @@ class FarmlogService {
       s6q4: input.data[5].s6q4,
       s6q4_remarks: input.data[5].s6q4_remarks,
     }
-    console.log(gardenManagementInfo)
     await this.knex("garden_management").insert(gardenManagementInfo)
 
     await this.knex("other_issues").insert({      
@@ -263,7 +243,6 @@ class FarmlogService {
      console.log(today)
  
 
-    //  select *  from crop inner join zone_crop on  zone_crop.crop_id = crop.id where crop.zone_id = 3 and sowing = 'f' order by sowing_date ASC;
     let cropid = await this.knex("crop")
     .innerJoin("zone_crop","zone_crop.crop_id","crop.id" )
     .where("crop.zone_id",  UsersZone[0].id)
@@ -272,17 +251,13 @@ class FarmlogService {
     .where("harvest", false)
     .where("harvest_date", "<=", today)
     .orderBy("harvest_date", "asc")
-    
-    // console.log(`crop`,cropid)
-    // console.log(`cropid`,cropid[0].id)
-    // console.log(`croplength`,cropid.length)
-    
+        
     if (cropid.length == 1){
     await this.knex("crop").update({
        harvest: true,
     }).where("id",cropid[0].id)
     } else {
-    return `Error`
+     throw new Error("Fail to update status")
     }
 
     return `harvest Success`
