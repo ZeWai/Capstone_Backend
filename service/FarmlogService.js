@@ -235,22 +235,14 @@ class FarmlogService {
      s7q1:input.data[6].s7q1})
 
      var today = new Date();
-     var dd = String(today.getDate() + 1).padStart(2, '0'); // Today + 1
-     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-     var yyyy = today.getFullYear();
  
-     today = `${yyyy}-${mm}-${dd}`;
-     console.log(today)
- 
-
-    let cropid = await this.knex("crop")
-    .innerJoin("zone_crop","zone_crop.crop_id","crop.id" )
-    .where("crop.zone_id",  UsersZone[0].id)
-    .where("crop.name", input.data[4].s5q1)
-    .where("sowing", true)
-    .where("harvest", false)
-    .where("harvest_date", "<=", today)
-    .orderBy("harvest_date", "asc")
+     let cropid = await this.knex("crop")
+     .innerJoin("zone_crop","zone_crop.crop_id","crop.id" )
+     .where("crop.zone_id",  UsersZone[0].id)
+     .where("crop.name", input.data[4].s5q1)
+     .where("sowing", true)
+     .where("harvest_date","<=", today);
+     
         
     if (cropid.length == 1){
     await this.knex("crop").update({
