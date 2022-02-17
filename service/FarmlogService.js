@@ -201,12 +201,6 @@ class FarmlogService {
   }
 
 
-
-//      .where("sowing", true)
-// harvest = false
-// harvest_date <= today + 1
-// time -> T23
-
   // Submit Harvest farmlog
   async submitHarvest(farmerId, input) {
     console.log(`submitHarvest`)
@@ -239,10 +233,10 @@ class FarmlogService {
     }
     console.log(`harvestInfo`, harvestInfo)
 
-    await this.knex("grooming").insert(harvestInfo)
+    // await this.knex("harvest").insert(harvestInfo)
 
     let gardenManagementInfo = {
-      GA_farm_log_id: G_farmlogId[0].id,
+      GA_farm_log_id: H_farmlogId[0].id,
       s6q1: input.data[5].s6q1,
       s6q1_remarks: input.data[5].s6q1_remarks,
       s6q2: input.data[5].s6q2,
@@ -257,19 +251,41 @@ class FarmlogService {
     await this.knex("garden_management").insert(gardenManagementInfo)
 
     await this.knex("other_issues").insert({      
-      O_farm_log_id: G_farmlogId[0].id,
+      O_farm_log_id: H_farmlogId[0].id,
      s7q1:input.data[6].s7q1})
 
-    return `harvest Success`
-  }
+     var today = new Date();
+     var dd = String(today.getDate() + 1).padStart(2, '0'); // Today + 1
+     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+     var yyyy = today.getFullYear();
+ 
+     today = `${yyyy}-${mm}-${dd}T23:00:00.000Z`;
+     console.log(today)
+ 
 
-  postHarvest(farmlogId, input) {
-    return this.knex("harvest").insert({
-      farm_log_id: farmlogId,
-      s5q1: input.s5q1,
-      s5q2: input.s5q2,
-      s5q3: input.s5q3,
-    });
+    //  select *  from crop inner join zone_crop on  zone_crop.crop_id = crop.id where crop.zone_id = 3 and sowing = 'f' order by sowing_date ASC;
+    let cropid = await this.knex("crop")
+    .innerJoin("zone_crop","zone_crop.crop_id","crop.id" )
+    .where("crop.zone_id",  UsersZone[0].id)
+    .where("crop.name", input.data[4].s5q1)
+    .where("sowing", true)
+    .where("harvest", false)
+    .where("harvest_date", "<=", today)
+    .orderBy("harvest_date", "asc")
+    
+    // console.log(`crop`,cropid)
+    // console.log(`cropid`,cropid[0].id)
+    // console.log(`croplength`,cropid.length)
+    
+    if (cropid.length == 1){
+    await this.knex("crop").update({
+       harvest: true,
+    }).where("id",cropid[0].id)
+    } else {
+    return `Error`
+    }
+
+    return `harvest Success`
   }
 
 }

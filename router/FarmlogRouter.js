@@ -79,7 +79,6 @@ class FarmlogRouter {
       .submitHarvest(req.params.userid,req.body)
       .then((data) => {
         console.log(data)
-
         res.json(data);
       })
       .catch((err) => {
