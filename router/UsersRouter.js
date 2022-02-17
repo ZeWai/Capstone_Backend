@@ -28,6 +28,7 @@ class UsersRouter {
         { name: 'icon', maxCount: 1 }
       ]),
       this.signupFarmer.bind(this));
+    router.post("/signupAdmin", this.signupAdmin.bind(this));
     //login
     router.post("/login", this.login.bind(this));
     //get user info
@@ -37,6 +38,8 @@ class UsersRouter {
     router.get("/clientList", this.auth.authenticate(), this.clientList.bind(this));
     router.get("/farmerList", this.auth.authenticate(), this.farmerList.bind(this));
     router.put("/deleteAccount/:id", this.deleteAccount.bind(this));
+    router.delete("/resetAssign", this.resetAssign.bind(this));
+    router.delete("/resetPlace", this.resetPlace.bind(this));
     return router;
   }
 
@@ -111,6 +114,24 @@ class UsersRouter {
       .then((data) => res.json(data));
   }
 
+  signupAdmin(req, res) {
+    return this.usersService
+      .signupAdmin(
+        req.body.username,
+        req.body.email,
+        req.body.password,
+        req.body.postCode,
+        req.body.tel,
+        req.body.role,
+        req.body.status,
+        req.body.name,
+        req.body.address,
+        req.body.icon,
+        req.body.image
+      )
+      .then((data) => res.json(data));
+  }
+
   login(req, res) {
     return this.usersService
       .login(req.body.username, req.body.password)
@@ -140,6 +161,12 @@ class UsersRouter {
   }
   deleteAccount(req, res) {
     return this.usersService.deleteAccount(req.params.id).then((data) => res.json(data));
+  }
+  resetAssign(req, res) {
+    return this.usersService.resetAssign(req.body.removeId, req.body.newAssign).then((data) => res.json(data));
+  }
+  resetPlace(req, res) {
+    return this.usersService.resetPlace(req.body.removeId, req.body.newAssign).then((data) => res.json(data));
   }
 
 }

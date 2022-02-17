@@ -1,4 +1,3 @@
-const { access } = require("auth");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
@@ -142,6 +141,60 @@ class UsersService {
       return err;
     }
   }
+  //post signup admin
+  async signupAdmin(
+    Username,
+    Email,
+    Password,
+    PostCode,
+    Tel,
+    Role,
+    Status,
+    Name,
+    Address,
+    Icon,
+    Image
+  ) {
+    let hashedPassword = await bcrypt.hash(Password, 10);
+    try {
+      let checkExsit = await this.knex("users")
+        .select("username")
+        .where({ username: Username })
+      if (checkExsit.length == 0) {
+        //insert users table
+        let usersInsert = {
+          username: Username,
+          email: Email,
+          password: hashedPassword,
+          postCode: PostCode,
+          tel: Tel,
+          role: Role,
+          status: Status,
+        };
+        await this.knex("users").insert(usersInsert)
+        //insert user_info table
+        let userId = await this.knex("users")
+          .select("id")
+          .where({ username: Username })
+        let infoInsert = {
+          name: Name,
+          users_id: userId[0].id,
+          address: Address,
+          icon: Icon,
+          image: Image
+        };
+        await this.knex("user_info").insert(infoInsert);
+        let err = "Signup success!";
+        return err;
+      } else {
+        let err = "Username already exists!";
+        return err;
+      }
+    } catch (err) {
+      err = "Signup success!";
+      return err;
+    }
+  }
 
   //post login
   async login(username, password) {
@@ -214,7 +267,8 @@ class UsersService {
   async clientList() {
     let clientList = [];
     let client = await this.knex.from("users")
-      .select("id", "username", "status")
+      .innerJoin("user_info", "users.id", "user_info.users_id")
+      .select("*")
       .where({ role: "client", status: true })
     const farmer = (async (id) => {
       let farmerList = [];
@@ -230,6 +284,7 @@ class UsersService {
     for (let i = 0; i < client.length; i++) {
       clientList.push({
         id: client[i].id,
+        name: client[i].name,
         username: client[i].username,
         status: client[i].status,
         farmer: await farmer(client[i].id),
@@ -243,7 +298,8 @@ class UsersService {
   async farmerList() {
     let farmerList = [];
     let farmer = await this.knex.from("users")
-      .select("id", "username", "status")
+      .innerJoin("user_info", "users.id", "user_info.users_id")
+      .select("*")
       .where({ role: "farmer", status: true })
     const client = (async (id) => {
       let clientList = [];
@@ -259,6 +315,7 @@ class UsersService {
     for (let i = 0; i < farmer.length; i++) {
       farmerList.push({
         id: farmer[i].id,
+        name: farmer[i].name,
         username: farmer[i].username,
         status: farmer[i].status,
         client: await client(farmer[i].id),
@@ -274,6 +331,46 @@ class UsersService {
       .update('status', false)
       .where("id", id)
     return "Delete account success!";
+  }
+
+  //reset assign
+  async resetAssign(removeId, newAssign) {
+    //clear old record
+    await this.knex("farmer_info")
+      .del()
+      .where({ client_id: removeId })
+    //create new record
+    let newAssignInsert = [];
+    if (newAssign.length > 0) {
+      for (let i = 0; i < newAssign.length; i++) {
+        newAssignInsert.push({
+          farmer_id: newAssign[i],
+          client_id: removeId,
+        })
+      }
+      await this.knex("farmer_info").insert(newAssignInsert)
+      return "Edit success!";
+    }
+  }
+
+  //reset place
+  async resetPlace(removeId, newAssign) {
+    //clear old record
+    await this.knex("farmer_info")
+      .del()
+      .where({ farmer_id: removeId })
+    //create new record
+    let newAssignInsert = [];
+    if (newAssign.length > 0) {
+      for (let i = 0; i < newAssign.length; i++) {
+        newAssignInsert.push({
+          farmer_id: removeId,
+          client_id: newAssign[i],
+        })
+      }
+      await this.knex("farmer_info").insert(newAssignInsert)
+      return "Edit success!";
+    }
   }
 }
 

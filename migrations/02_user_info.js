@@ -7,6 +7,7 @@ exports.up = function (knex) {
     table.string("address");
     table.string("icon");
     table.string("image");
+    table.timestamps(true, true);
   });
 };
 
