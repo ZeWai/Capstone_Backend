@@ -10,38 +10,37 @@ class FarmlogRouter {
 
   router() {
     let router = express.Router();
-    router.get("/", this.auth.authenticate(), this.get.bind(this));
-    router.post("/:userid/s1", this.auth.authenticate(), this.post_s1.bind(this));
-    router.post("/:userid/s2", this.auth.authenticate(), this.post_s2.bind(this));
-    router.post("/:userid/s3", this.auth.authenticate(), this.post_s3.bind(this));
-    router.post("/:userid/s4", this.auth.authenticate(), this.post_s4.bind(this));
-    router.post("/:userid/s5", this.auth.authenticate(), this.post_s5.bind(this));
-    router.post("/:userid/s6", this.auth.authenticate(), this.post_s6.bind(this));
-    router.post("/:userid/s7", this.auth.authenticate(), this.post_s7.bind(this));
-
+    // router.get("/", this.auth.authenticate(), this.get.bind(this));
+    router.post("/:userid/planting", this.postPlanting.bind(this));
+    router.post("/:userid/irrigation", this.postIrrigation.bind(this));
+    router.post("/:userid/grooming", this.postGrooming.bind(this));
+    router.post("/:userid/harvest", this.postHarvest.bind(this));
     return router;
   }
 
   // GET form data
   // ==================================
-  get(req, res) {
-    return this.farmlogService
-      .list()
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.status(500);
-        return res.json(err);
-      });
-  }
+  // get(req, res) {
+  //   return this.farmlogService
+  //     .list()
+  //     .then((data) => {
+  //       res.json(data);
+  //     })
+  //     .catch((err) => {
+  //       res.status(500);
+  //       return res.json(err);
+  //     });
+  // }
 
   // POST form data
   // ==================================
-  post_s1(req, res) {
+  
+  
+  postPlanting(req, res) {
     return this.farmlogService
-      .submit_s1(req.perams.userid,req.body.farmlogForm)
+      .submitPlanting(req.params.userid, req.body)
       .then((data) => {
+        console.log(data)
         res.json(data);
       })
       .catch((err) => {
@@ -50,10 +49,11 @@ class FarmlogRouter {
       });
   }
 
-  post_s2(req, res) {
+  postIrrigation(req, res) {
     return this.farmlogService
-      .submit_s2(req.perams.userid,req.body.farmlogForm)
+      .submitIrrigation(req.params.userid, req.body)
       .then((data) => {
+        console.log(data)
         res.json(data);
       })
       .catch((err) => {
@@ -61,10 +61,12 @@ class FarmlogRouter {
         return res.json(err);
       });
   }
-  post_s3(req, res) {
+  postGrooming(req, res) {
     return this.farmlogService
-      .submit_s3(req.perams.userid,req.body.farmlogForm)
+      .submitGrooming(req.params.userid,req.body)
       .then((data) => {
+        console.log(data)
+
         res.json(data);
       })
       .catch((err) => {
@@ -72,10 +74,11 @@ class FarmlogRouter {
         return res.json(err);
       });
   }
-  post_s4(req, res) {
+  postHarvest(req, res) {
     return this.farmlogService
-      .submit_s4(req.perams.userid,req.body.farmlogForm)
+      .submitHarvest(req.params.userid,req.body)
       .then((data) => {
+        console.log(data)
         res.json(data);
       })
       .catch((err) => {
@@ -83,39 +86,7 @@ class FarmlogRouter {
         return res.json(err);
       });
   }
-  post_s5(req, res) {
-    return this.farmlogService
-      .submit_s5(req.perams.userid,req.body.farmlogForm)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.status(500);
-        return res.json(err);
-      });
-  }
-  post_s6(req, res) {
-    return this.farmlogService
-      .submit_s6(req.perams.userid,req.body.farmlogForm)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.status(500);
-        return res.json(err);
-      });
-  }
-  post_s7(req, res) {
-    return this.farmlogService
-      .submit_s7(req.perams.userid,req.body.farmlogForm)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.status(500);
-        return res.json(err);
-      });
-  }
+
 }
 
 module.exports = FarmlogRouter;

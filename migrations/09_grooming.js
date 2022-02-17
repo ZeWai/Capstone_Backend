@@ -1,8 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("grooming", (table) => {
-    table.increments("id").primary();
-    table.integer("farm_log_id").unsigned().unique();
-    table.foreign("farm_log_id").references("farm_log.id");
+    table.increments("id")
+    table.integer("G_farm_log_id").unsigned()
+    table.foreign("G_farm_log_id").references("farm_log.id");
     table.boolean("s4q1");
     table.string("s4q1_pest");
     table.string("s4q1_dosage");

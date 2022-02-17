@@ -10,7 +10,7 @@ exports.seed = function (knex) {
           sowing_date: '2022-01-10',
           irrigation_period: 3,
           grooming_date: '2022-01-11',
-          harvest_date: '2022-03-19',
+          harvest_date: '2022-02-10',
         },
         {
           crop_id: 2,
