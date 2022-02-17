@@ -40,7 +40,7 @@ class DashboardService {
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
-        today = `${yyyy}-${mm}-${dd}T16:00:00.000Z`;
+        today = `${yyyy}-${mm}-${dd}`;
 
         return await this.knex("crop")
             .join("zone_crop", "crop.id", 'zone_crop.crop_id')
@@ -65,7 +65,7 @@ class DashboardService {
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
-        today = `${yyyy}-${mm}-${dd}T16:00:00.000Z`;
+        today = `${yyyy}-${mm}-${dd}`;
         return await this.knex("crop")
             .select("name","harvest_date")
             .join("zone_crop", "crop.id", 'zone_crop.crop_id')

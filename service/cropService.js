@@ -61,7 +61,7 @@ class CropService {
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
-    today = `${yyyy}-${mm}-${dd}T16:00:00.000Z`;
+    today = `${yyyy}-${mm}-${dd}`;
 
     if (zone === "Overview") {
       return await getReadyToHarvest(location)
@@ -85,7 +85,7 @@ class CropService {
     var dd = String(today.getDate() + 1).padStart(2, '0'); //To make sure get correct date
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    var today = `${yyyy}-${mm}-${dd}T23:00:00.000Z`;
+    var today = `${yyyy}-${mm}-${dd}`;
     const SowToday = await this.SowToday(location, zone, today)
     const WorkToday = await this.WorkToday(location, zone, today)
     return SowToday.concat(WorkToday)
