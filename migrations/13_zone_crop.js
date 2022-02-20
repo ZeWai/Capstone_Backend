@@ -9,8 +9,6 @@ exports.up = function (knex) {
     table.string("sowing_date"); //YYYY-MM-DD
     table.string("grooming_date"); //YYYY-MM-DD
     table.string("harvest_date"); //YYYY-MM-DD
-    table.integer("irrigation_counter").defaultTo(0);
-
   });
 };
 
