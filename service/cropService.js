@@ -88,8 +88,9 @@ class CropService {
     var today = `${yyyy}-${mm}-${dd}`;
     const SowToday = await this.SowToday(location, zone, today)
     console.log(SowToday)
-    const HarvestToday = await this.WorkToday(location, zone, today)
-    return SowToday.concat(WorkToday)
+    const HarvestToday = await this.HarvestToday(location, zone, today)
+/*     console.log(this.WaterToday(location, zone, today))
+ */    return SowToday.concat(HarvestToday)
   }
 
   async SowToday(location, zone, today) {
@@ -142,8 +143,9 @@ class CropService {
   }
 
   async WaterToday(location, zone, today) {
+    const watertoday = [];
     if (zone === "Overview") {
-      return await this.knex("crop")
+      const growing =await this.knex("crop")
         .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
@@ -152,6 +154,9 @@ class CropService {
         .where("sowing", true)
         .where("harvest", false)
         .where("harvest_date", ">", today)
+      
+      console.log(growing,"growing")
+      return "hello"
     } else {
       return await this.knex("crop")
         .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")

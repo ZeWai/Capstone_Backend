@@ -6,7 +6,6 @@ exports.up = function (knex) {
       table.integer("irrigation_period");
       table.string("est_harvest");
       table.string("image")
-      table.integer("irrigation_counter").defaultTo(0);
     });
   };
   
