@@ -11,7 +11,6 @@ exports.seed = function (knex) {
           irrigation_period: 3,
           grooming_date: '2022-01-11',
           harvest_date: '2022-02-10',
-          irrigation_counter:10
         },
         {
           crop_id: 2,
@@ -20,7 +19,6 @@ exports.seed = function (knex) {
           irrigation_period: 4,
           grooming_date: '2021-10-11',
           harvest_date: '2022-02-16',
-          irrigation_counter:32
         },
         {
           crop_id: 3,
@@ -29,7 +27,6 @@ exports.seed = function (knex) {
           irrigation_period: 2,
           grooming_date: '2021-09-10',
           harvest_date: '2022-02-05',
-          irrigation_counter:78
         },
         {
           crop_id: 4,
@@ -38,7 +35,6 @@ exports.seed = function (knex) {
           irrigation_period: 1,
           grooming_date: '2022-01-16',
           harvest_date: '2022-04-01',
-          irrigation_counter:35
         },
         {
           crop_id: 5,
@@ -55,7 +51,6 @@ exports.seed = function (knex) {
           irrigation_period: 6,
           grooming_date: '2022-02-06',
           harvest_date: '2022-04-30',
-          irrigation_counter: 2
         },
         {
           crop_id: 7,
@@ -64,7 +59,6 @@ exports.seed = function (knex) {
           irrigation_period: 4,
           grooming_date: '2022-01-10',
           harvest_date: '2022-04-01',
-          irrigation_counter: 10
         },
         {
           crop_id: 8,
@@ -81,7 +75,6 @@ exports.seed = function (knex) {
           irrigation_period: 3,
           grooming_date: '2022-11-09',
           harvest_date: '2022-02-02',
-          irrigation_counter:28
         },
         {
           crop_id: 10,
@@ -90,7 +83,6 @@ exports.seed = function (knex) {
           irrigation_period: 3,
           grooming_date: '2022-11-15',
           harvest_date: '2022-02-10',
-          irrigation_counter: 29
         },
         {
           crop_id: 11,
@@ -99,7 +91,6 @@ exports.seed = function (knex) {
           irrigation_period: 2,
           grooming_date: '2022-11-18',
           harvest_date: '2022-02-13',
-          irrigation_counter:44
         },
       ]);
     });

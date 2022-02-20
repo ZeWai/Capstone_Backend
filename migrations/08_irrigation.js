@@ -6,10 +6,10 @@ exports.up = function (knex) {
     table.boolean("s3q1");
     table.string("s3q1_remarks");
     table.boolean("s3q2");
-    table.date("s3q2_date_start");
-    table.date("s3q2_date_end");
-    table.time("s3q2_time_start");
-    table.time("s3q2_time_end");
+    //table.string("s3q2_date_start");
+    //table.string("s3q2_date_end");
+    //table.time("s3q2_time_start");
+    //table.time("s3q2_time_end");
     table.string("s3q2_frequency");
     table.string("s3q3");
   });

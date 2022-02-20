@@ -10,7 +10,6 @@ class FarmlogService {
     .select("zone.users_id","zone.id", "users.username", "zone.area")
     .where({ username: input.data[0].users })
     .where({ area: input.data[0].zone })
-
     let getfarmlogId = {
       farmer_id: farmerId,
       users_id: UsersZone[0].users_id,
@@ -91,23 +90,24 @@ class FarmlogService {
       weather: input.data[0].weather,
       temp: input.data[0].temp,
     }
-    
-    let I_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
 
+    let I_farmlogId = await this.knex("farm_log").insert(getfarmlogId).returning("farm_log.id")
     let irrigationInfo = {
       I_farm_log_id: I_farmlogId[0].id,
       s3q1: input.data[2].s3q1,
       s3q1_remarks: input.data[2].s3q1_remarks,
       s3q2: input.data[2].s3q2,
-      s3q2_date_start: input.data[2].s3q2_date_start,
-      s3q2_date_end: input.data[2].s3q2_date_end,
-      s3q2_time_start: input.data[2].s3q2_time_start,
-      s3q2_time_end: input.data[2].s3q2_time_end,
+      //s3q2_date_start: input.data[2].s3q2_date_start,
+      //s3q2_date_end: input.data[2].s3q2_date_end,
+      //s3q2_time_start: input.data[2].s3q2_time_start,
+      //s3q2_time_end: input.data[2].s3q2_time_end,
       s3q2_frequency: input.data[2].s3q2_frequency,
       s3q3: input.data[2].s3q3,
     }
+    console.log(irrigationInfo)
 
     await this.knex("irrigation").insert(irrigationInfo)
+    console.log("hi")
 
     let gardenManagementInfo = {
       GA_farm_log_id: I_farmlogId[0].id,
@@ -121,6 +121,7 @@ class FarmlogService {
       s6q4: input.data[5].s6q4,
       s6q4_remarks: input.data[5].s6q4_remarks,
     }
+    console.log(gardenManagementInfo)
     await this.knex("garden_management").insert(gardenManagementInfo)
 
     await this.knex("other_issues").insert({      

@@ -87,15 +87,14 @@ class CropService {
     var yyyy = today.getFullYear();
     var today = `${yyyy}-${mm}-${dd}`;
     const SowToday = await this.SowToday(location, zone, today)
-    console.log(SowToday)
-    const HarvestToday = await this.WorkToday(location, zone, today)
+    const WorkToday = await this.WorkToday(location, zone, today)
     return SowToday.concat(WorkToday)
   }
 
   async SowToday(location, zone, today) {
     if (zone === "Overview") {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
@@ -105,7 +104,7 @@ class CropService {
       
     } else {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
@@ -116,10 +115,10 @@ class CropService {
     }
   }
 
-  async HarvestToday(location, zone, today) {
+  async WorkToday(location, zone, today) {
     if (zone === "Overview") {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
@@ -129,7 +128,7 @@ class CropService {
         .where("harvest_date", "<=", today)
     } else {
       return await this.knex("crop")
-        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
+        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
         .innerJoin("users", "zone.users_id", "users.id")
@@ -138,47 +137,6 @@ class CropService {
         .where("sowing", true)
         .where("harvest", false)
         .where("harvest_date", "<=", today)
-    }
-  }
-
-  async WaterToday(location, zone, today) {
-    if (zone === "Overview") {
-      return await this.knex("crop")
-        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
-        .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
-        .innerJoin("zone", "zone_crop.zone_id", "zone.id")
-        .innerJoin("users", "zone.users_id", "users.id")
-        .where("username", location)
-        .where("sowing", true)
-        .where("harvest", false)
-        .where("harvest_date", ">", today)
-    } else {
-      const growing = await this.knex("crop")
-        .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
-        .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
-        .innerJoin("zone", "zone_crop.zone_id", "zone.id")
-        .innerJoin("users", "zone.users_id", "users.id")
-        .where("username", location)
-        .where("area", zone)
-        .where("sowing", true)
-        .where("harvest", false)
-        .where("harvest_date", ">", today)
-      
-      for (let i = 0; i < growing.length; i++) {
-        var Today = parseInt(`${today.slice(0, 4)}${today.slice(5, 7)}${today.slice(8, 10)}`)
-        var sowingDate = parseInt(`${growing[i].sowing_date.slice(0, 4)}${growing[i].sowing_date.slice(5, 7)}${growing[i].sowing_date.slice(8, 10)}`)
-        console.log((Today - sowingDate) % growing[i].irrigation_period === 0,"1")
-        console.log((Today - sowingDate) % growing[i].irrigation_period > growing[i].irrigation_counter,"2")
-
-        if ((Today - sowingDate) % growing[i].irrigation_period === 0) {
-          if ((Today - sowingDate) % growing[i].irrigation_period > growing[i].irrigation_counter) {
-            console.log(growing[i])
-
-            watertoday.push(growing[i])
-            console.log(watertoday)
-          }
-        }
-      }
     }
   }
 }
