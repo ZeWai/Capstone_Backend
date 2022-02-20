@@ -87,10 +87,9 @@ class CropService {
     var yyyy = today.getFullYear();
     var today = `${yyyy}-${mm}-${dd}`;
     const SowToday = await this.SowToday(location, zone, today)
-    console.log(SowToday)
     const HarvestToday = await this.HarvestToday(location, zone, today)
-/*     console.log(this.WaterToday(location, zone, today))
- */    return SowToday.concat(HarvestToday)
+    const Watertoday = await this.WaterToday(location, zone, today)
+    return SowToday.concat(HarvestToday)
   }
 
   async SowToday(location, zone, today) {
@@ -153,12 +152,28 @@ class CropService {
         .where("username", location)
         .where("sowing", true)
         .where("harvest", false)
-        .where("harvest_date", ">", today)
+        .where("harvest_date", ">", today) 
       
-      console.log(growing,"growing")
+      for (let i = 0; i < growing.length; i++){
+        var Today = parseInt(`${today.slice(0, 4)}${today.slice(5, 7)}${today.slice(8, 10)}`)
+        var sowingDate = parseInt(`${growing[i].sowing_date.slice(0, 4)}${growing[i].sowing_date.slice(5, 7)}${growing[i].sowing_date.slice(8, 10)}`)
+        console.log((Today - sowingDate) % growing[i].irrigation_period === 0, "1")
+        console.log((Today - sowingDate) % growing[i].irrigation_period > growing[i].irrigation_counter,"2")
+        
+        if ((Today - sowingDate) % growing[i].irrigation_period === 0) {
+          if ((Today - sowingDate) % growing[i].irrigation_period > growing[i].irrigation_counter) {
+            console.log(growing[i])
+
+            watertoday.push(growing[i])
+            console.log(watertoday)
+          }
+        }
+      }
+      console.log(watertoday)
+
       return "hello"
     } else {
-      return await this.knex("crop")
+      const growing = await this.knex("crop")
         .select("name", "area", "harvest_date", "sowing", "harvest", "irrigation_period", "sowing_date", "irrigation_counter")
         .innerJoin("zone_crop", "zone_crop.crop_id", "crop.id")
         .innerJoin("zone", "zone_crop.zone_id", "zone.id")
@@ -168,6 +183,22 @@ class CropService {
         .where("sowing", true)
         .where("harvest", false)
         .where("harvest_date", ">", today)
+      
+      for (let i = 0; i < growing.length; i++) {
+        var Today = parseInt(`${today.slice(0, 4)}${today.slice(5, 7)}${today.slice(8, 10)}`)
+        var sowingDate = parseInt(`${growing[i].sowing_date.slice(0, 4)}${growing[i].sowing_date.slice(5, 7)}${growing[i].sowing_date.slice(8, 10)}`)
+        console.log((Today - sowingDate) % growing[i].irrigation_period === 0,"1")
+        console.log((Today - sowingDate) % growing[i].irrigation_period > growing[i].irrigation_counter,"2")
+
+        if ((Today - sowingDate) % growing[i].irrigation_period === 0) {
+          if ((Today - sowingDate) % growing[i].irrigation_period > growing[i].irrigation_counter) {
+            console.log(growing[i])
+
+            watertoday.push(growing[i])
+            console.log(watertoday)
+          }
+        }
+      }
     }
   }
 }
